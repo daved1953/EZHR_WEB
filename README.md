@@ -1,2 +1,2 @@
-# EZHR_WEB
-EZHR_Web application
+# EzHrWeb
+EZHR Web site

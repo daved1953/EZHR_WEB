@@ -1,0 +1,14 @@
+﻿@model TRAntonIncidents.LoginModel
+
+
+@{
+    ViewBag.Title = "Welcome";
+ }
+<div>
+    @RenderBody()
+   <div>
+         @Html.LabelFor(m => m.SelectedUserRoleId)
+         @Html.DropDownListFor(m => m.SelectedUserRoleId, Model.UserRoles)
+
+    </div>
+</div>

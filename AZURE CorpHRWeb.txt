@@ -1,0 +1,46 @@
+AZURE DEV system – 30 day trial
+Account info:
+ UserId  : dadolson@hotmail.com 
+ Password ( my current Microsoft password)
+ SQl server
+Server  name:   azure-tranton 
+Server Admin login : Bears
+Password :  trantonweb2017@
+
+ Location:  WestUS
+
+  Set up AZure Firewall for servers, use wide Ip address window.
+
+Connection string examples : 
+ADO.NET:
+Server=tcp:azure-tranton.database.windows.net,1433;Initial Catalog=CorpHRWeb;Persist Security Info=False;User ID={your_username};Password={your_password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
+
+ODBC 
+Driver={ODBC Driver 13 for SQL Server};Server=tcp:azure-tranton.database.windows.net,1433;Database=CorpHRWeb;Uid=Bears@azure-tranton;Pwd={your_password_here};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;
+
+
+ Steps to migrate from Access Db to Azure tables.
+ 
+ All tables need to have Primary Keys, that artre notpart ofhteIve code , for doing in\sertd ID values should come from 
+   primary keyed [tablename]ID Identity values.
+
+  Select statement need to be re written to not include primary key values.
+
+   OLE DB needs to be removed from IVR app, replace with ORM, Dapper. 
+
+  IVR works with AZURE database models. 
+ . 
+  
+
+1. rename objects 
+   IE columns
+   POsted Date = PostDate
+
+2. add Indexes to all tables 
+
+3. validate stored procedures / scripts
+
+4. install on tranfer machine the following: all from Microsoft
+  A. AccessDatabaseEngine 2007.exe
+  B. PrimaryInteropAssembly office 2007.exe 
+  C. SSMA for Access.6.0.0.exe

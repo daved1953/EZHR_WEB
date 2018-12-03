@@ -1,0 +1,124 @@
+
+
+ Translator studff
+ Nuget package from NUGET console:
+  install-package Google.Cloud.Translation.V2 -pre
+  
+   Transalator API key:  AIzaSyAb4Tjt3CPIG_yuOv_KtsE60hDMXEHPNZc 
+  
+  OAuth license key for EZHRIncident:
+   Client ID
+               264311324184-8lck0mgng4jjsdt6gvft84o8ovgc6od7.apps.googleusercontent.com
+    Client secret
+               I05oEEvi9D8vT4hmJ2v-hB24
+    Creation date
+              Jun 17, 2017, 10:58:57 AM
+
+  
+  
+  code: 
+  using Google.Cloud.Translation.V2;
+using System;
+
+public class QuickStart
+{
+    public static void Main(string[] args)
+    {
+        Console.OutputEncoding = System.Text.Encoding.Unicode;
+        TranslationClient client = TranslationClient.Create();
+        var response = client.TranslateText("Hello World.", "ru");
+        Console.WriteLine(response.TranslatedText);
+    }
+}
+ 
+ 
+  new code errored :
+  
+  https://developers.google.com/accounts/docs/application-default-credentials for more information.
+
+ reference documents: 
+               https://googlecloudplatform.github.io/google-cloud-dotnet/
+  
+				https://googlecloudplatform.github.io/google-cloud-dotnet/docs/Google.Cloud.Translation.V2/index.html
+
+
+Call flow determined via DMaker and number response Qid -> R1 to R8
+ 
+   Need extened text from Sample CallFlow table for actual text to display. 
+ public class Dstuff
+     {
+	   public int QuestionId {get;set;}
+	   public string R1 {get;set;}
+	   public string R2 {get;set;}
+	   public string R3 {get;set;}
+	   public string R4 {get;set;}
+	   public string R5 {get;set;}
+	   public string R6 {get;set;}
+	   public string R7 {get;set;}
+	  public string R8 {get;set;}
+	   public string R9 {get;set;}
+	   public string R10 {get;set;}
+	 }
+	
+public class Dquestion 
+    {
+	  public int QuestionId {get;set;}
+	  public string Pompt {get;set;}
+	  public string ResponseType {get;set;}
+	}
+
+public class Wuser
+     {
+	   public int Recordid {get;set;} 
+	   public string Selectedlang {get; Set;}
+	   public string Username { get;set;}
+	   public string phonenumber {get;set;}
+	   Public datetime startdate {get;set;}
+	   public datetime Enddate {get;set;}
+     }
+
+	 public class Responses
+    {
+	  public string Sysrecordid{get;set;}
+      public int recordId {get;set;}
+	  public string QuestionID{get;set;}
+      public string  Questionresponse {get,set}
+	}	
+	
+	public class X-controller
+	  {
+	    public void  ProcessRadios( string QuesionId, List<ThisIncident> myIncident)
+		   {
+		     // proces a bool result, load up the next question and response type, display that page
+			  
+			  Myincident.ActiveForm (select response )
+			 
+			 
+		   }
+	    
+		 public void ProcessMultiselect (string Quesionid, List<Thisincident>)
+             {
+			  // process a muti list result item, load up nex quesion form, and response type, display that page
+			 
+			 }		 
+	  
+	  }
+	 
+	 
+	  Session state vaiables:
+	  
+	  using System.Web.SessionState
+	    /// research -  SessionStateStoreProviderBase Class
+		//https://msdn.microsoft.com/en-us/library/6ad7zeeb.aspx     How to: Save Values in Session State
+	     // requires session state enabled to access session state vaiables 
+	   
+         //Session state can expire (by default, after 20 minutes of inactivity),
+        // 		 and the information that you store there can be lost. You can control session-state lifetime 
+		//   using the timeout attribute of the sessionState configuration section.
+		// 
+        // Depending on your application requirements, you may want to consider an alternative to session state for storing information for each user.
+        // ASP.NET provides several other options for persisting data within an application.
+		// For a comparison of each, see ASP.NET State Management Recommendations.
+
+		
+	 
