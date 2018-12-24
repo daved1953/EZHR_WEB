@@ -1,0 +1,115 @@
+
+
+ CAll flolw annalysis: 
+ 
+  Private Sub Main_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        Dim dbconn As New OleDb.OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Data source=CorPaccHL.mdb")
+        Dim adapter As New OleDb.OleDbDataAdapter()
+        Dim qmquery As String       'Use for Select String
+        Dim dmquery As String
+
+        'Set Question master DataTable
+        Dim pkCol As DataColumn = qmtable.Columns.Add("QID", Type.GetType("System.String"))
+        qmtable.Columns.Add("QType", Type.GetType("System.String"))
+        qmtable.Columns.Add("MaxDigits", Type.GetType("System.String"))
+        qmtable.Columns.Add("NextQID", Type.GetType("System.String"))
+        qmtable.Columns.Add("Question", Type.GetType("System.String"))
+        qmtable.PrimaryKey = New DataColumn() {pkCol}
+
+        'Set Decision Maker DataTable
+        Dim pkCol1 As DataColumn = dmtable.Columns.Add("QID", Type.GetType("System.String"))
+        dmtable.Columns.Add("R1", Type.GetType("System.String"))
+        dmtable.Columns.Add("R2", Type.GetType("System.String"))
+        dmtable.Columns.Add("R3", Type.GetType("System.String"))
+        dmtable.Columns.Add("R4", Type.GetType("System.String"))
+        dmtable.Columns.Add("R5", Type.GetType("System.String"))
+        dmtable.Columns.Add("R6", Type.GetType("System.String"))
+        dmtable.Columns.Add("R7", Type.GetType("System.String"))
+        dmtable.Columns.Add("R8", Type.GetType("System.String"))
+        dmtable.Columns.Add("R9", Type.GetType("System.String"))
+        dmtable.PrimaryKey = New DataColumn() {pkCol1}
+
+
+        Try
+            'qmaster.Open()
+            ' Insert code to process data.
+            'MsgBox("success")
+            Dim i As Integer
+            'For i = 0 To 4
+            '    NxtQID(i) = "5003"
+            'Next i
+            qmquery = "Select * from QMaster"
+            dmquery = "Select * from Dmaker"
+            'repq = "Select * from ReportData Where 'Confirmation'=1"
+            'respq = "Select * from Respdata Where 'Confirmation'=1"
+            dbconn.Open()
+            adapter.SelectCommand = New OleDb.OleDbCommand(qmquery, dbconn)
+            adapter.Fill(qmdataset, "QMasterDT")
+            adapter.SelectCommand = New OleDb.OleDbCommand(dmquery, dbconn)
+            adapter.Fill(dmdataset, "DMasterDT")
+            'adapter.SelectCommand = New OleDb.OleDbCommand(repq, dbconn)
+            'adapter.Fill(qmdataset, "RepDataT")
+            'adapter.SelectCommand = New OleDb.OleDbCommand(respq, dbconn)
+            'adapter.Fill(dmdataset, "RespdataT")
+            myResAdapt.Fill(Myresdata3, "Respdata")
+            myrepadapt.Fill(Myrepdata1, "ReportData")
+
+            dbconn.Close()
+
+            'DataGrid1.SetDataBinding(qmdataset, "QMasterDT")
+            'qmrow.Text = Qmdataset1.
+
+        Catch ex As Exception
+            MessageBox.Show("Main.load: " + ex.Message)
+            'Finally
+            '    qmaster.Close()
+        End Try
+
+    End Sub
+
+
+    Private Sub QProc(ByVal channel) 'follows NextQID to load next question parameters
+        Dim rowFoundRow As DataRow
+        Dim getnext As String
+        Dim Chnl As Integer
+        Chnl = channel
+        If NxtQID(Chnl) = "0" Then MDNextQID(Chnl) 'In the event of a decision must get new NextQID based on selection
+
+        Try
+            'getnext = NxtQID(Chnl)
+            rowFoundRow = qmtable.Rows.Find(NxtQID(Chnl))
+            If Not (rowFoundRow Is Nothing) Then
+                QID(Chnl) = rowFoundRow(0)
+                MaxD(Chnl) = rowFoundRow(2)
+                QType(Chnl) = rowFoundRow(1)
+                NxtQID(Chnl) = rowFoundRow(3)
+
+                'MessageBox.Show(CType(rowFoundRow(4), String))
+            Else
+                'MessageBox.Show("A row with the primary key of " & _
+                'getnext & " could not be found")
+            End If
+        Catch ex As Exception
+            MessageBox.Show("Question Loop: " + ex.Message)
+            'Finally
+            '    qmaster.Close()
+        Finally
+            'qmrow.Text = NxtQID(Chnl)
+
+        End Try
+    End Sub
+
+
+
+    Private Sub MDNextQID(ByVal chnl)
+        Dim dmkr As DataRow
+
+        'Load up the dmaker array
+        dmkr = dmtable.Rows.Find(QID(chnl))
+        If Not (dmkr Is Nothing) Then
+            NxtQID(chnl) = dmkr(Dindex(chnl))
+        Else
+            'MessageBox.Show("WTFH " getnext & " could not be found")
+        End If
+
+    End Sub

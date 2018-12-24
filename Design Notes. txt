@@ -4,3 +4,367 @@
  
    Need extened text from Sample CallFlow table for actual text to display. 
  
+ 
+ Code used for record id  - VB.Net version:
+   'Place All House Cleaning in here clear all array for channel leaving
+        Dim Chnl As Integer
+        Dim Ser As String 'Temporary Serial number for linking database tables
+
+
+        Chnl = e.channel
+        Conf(Chnl) = ""
+        Ser = Format(Now(), "ddyyssmmMMHH")
+        tmpConNum(Chnl) = "NC" & LTrim(Str(Chnl)) & "-" & Ser
+
+        'add a new row into the Reportdata table
+        'Reprow(Chnl) = MyResData3.Tables("reportdata").NewRow()
+        'Reprow(Chnl)("Confirmation") = tmpConNum(Chnl)
+        'Reprow(Chnl)("CallDate") = Now()
+        'MyResData3.Tables("ReportData").Columns.Item
+        Reprow(Chnl) = Myrepdata1.Tables("ReportData").NewRow()
+        recordRepData(e.channel, "CallID", tmpConNum(Chnl))
+        recordRepData(e.channel, "CallDate", Now())
+
+        'Dim i As Integer
+        'Dim itmz As Integer = MyResData3.Tables("ReportData").Columns.Count - 1
+        'For i = 0 To itmz   'Clears Current Channel array
+        '    repdata(Chnl, 0, i) = ""
+        '    repdata(Chnl, 1, i) = ""
+        'Next
+        'repdata(Chnl, 0, 2) = "CallDate"
+        'repdata(Chnl, 1, 2) = CStr(Now())
+        'repdata(Chnl, 0, 6) = "Confirmation"
+        'repdata(Chnl, 1, 6) = tmpConNum(Chnl)
+
+        LineGroup1.PlaySpeed(Chnl) = SpeedControl.Value
+        LineGroup1.PlayVolume(Chnl) = VolumeControl.Value
+        NxtQID(Chnl) = 5003
+        QProc(Chnl)     
+        
+       -----   how it gets stored ----
+           Public Shared Reprow(5) As DataRow
+     Sub recordRepData(ByVal Chnl As Integer, ByVal field As String, ByVal repd As Object)
+        Reprow(Chnl)(field) = repd
+     
+      
+    End Sub	 
+	   
+	    Sub RecordData(ByVal Chnl)
+        'Dim RDrow As DataRow
+        ' record the response to temp table based on channel name
+        'Dim RDtable As New myresdata.RespdataDataTable()
+        RDrow(Chnl) = Myresdata3.Tables("respdata").NewRow()
+        RDrow(Chnl)("CallID") = tmpConNum(Chnl)
+        RDrow(Chnl)("QID") = QID(Chnl)
+        RDrow(Chnl)("Dcollect") = QID(Chnl) + "." + LTrim(Str(Dindex(Chnl)))
+        Myresdata3.Tables("Respdata").Rows.Add(RDrow(Chnl))
+
+
+        'myRepAdapt.Update(MyResData3, "Respdata")
+
+    End Sub
+	
+	-------  Access inline sql calls  -------------
+	
+	 Taken from VB.Net IVR COde
+	     Public Shared lcnt(5) As Integer               'used to track certain loops like birthdate and area code phone number get digits
+    Public Shared Strxp(5) As String            'used when collecting loop data like area code and phone number or  birthdate information
+    Public Shared VapFile(5) As String
+    Public Shared Vapcom As String
+    Public Shared tmpConNum(5) As String
+    Public Shared Conf(5) As String
+
+
+    'Data Constructs
+    Public Shared qmdataset As New DataSet()      'QMaster DataSet
+    Public Shared qmtable As DataTable = qmdataset.Tables.Add("QmasterDT") 'Data Table that holds question Logic
+    Public Shared dmdataset As New DataSet()      'Dmaker DS
+    Public Shared dmtable As DataTable = dmdataset.Tables.Add("dmasterDT") 'DataTable that holds discesion branch info
+    'Public Shared RepDataDS As New DataSet()   'Report DataSet
+    'Public Shared Reptable As DataTable = RepDataDS.Tables.Add("RepDataT") 'DataTable that holds update info for the header record
+    'Public Shared RDtable As DataTable = RepDataDS.Tables.Add("RespDataT") 'DataTable that holds Update detail options selected for quistions
+    Public Shared RDrow(5) As DataRow
+    'Public Shared Reprow As DataRow
+    Public Shared Reprow(5) As DataRow
+    Public Shared repdata(5, 2, 20) As String
+
+
+    Public Shared QID(5) As String              'Array that contains current Question ID
+    Public Shared MaxD(5) As String             'The max total of responses used to build answer phrases
+    Public Shared NxtQID(5) As String           'The next Question ID
+    Public Shared QType(5) As String            'Used to determin the question type
+    Public Shared Dindex(5) As Integer          'Index of selected option for decision maker
+    Public Shared MDXindex(5) As Integer        'index on MX questions to advance to next Q
+	
+	 'OleDbConnection1
+        '
+        Me.OleDbConnection1.ConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Password="""";User ID=Admin;Data Source=C:\Program" & _
+        " Files\Pronexus\VBVoice\examples\dotnet\CustPhrs\bin\CorPaccHL.mdb;Mode=Share De" & _
+        "ny None;Extended Properties="""";Jet OLEDB:System database="""";Jet OLEDB:Registry P" & _
+        "ath="""";Jet OLEDB:Database Password="""";Jet OLEDB:Engine Type=5;Jet OLEDB:Database" & _
+        " Locking Mode=1;Jet OLEDB:Global Partial Bulk Ops=2;Jet OLEDB:Global Bulk Transa" & _
+        "ctions=1;Jet OLEDB:New Database Password="""";Jet OLEDB:Create System Database=Fal" & _
+        "se;Jet OLEDB:Encrypt Database=False;Jet OLEDB:Don't Copy Locale on Compact=False" & _
+        ";Jet OLEDB:Compact Without Replica Repair=False;Jet OLEDB:SFP=False"
+        '
+		
+        'myrepadapt
+		Me.myrepadapt.DeleteCommand = Me.OleDbDeleteCommand2
+        Me.myrepadapt.InsertCommand = Me.OleDbInsertCommand2
+        Me.myrepadapt.SelectCommand = Me.OleDbSelectCommand2
+        Me.myrepadapt.TableMappings.AddRange(New System.Data.Common.DataTableMapping() {New System.Data.Common.DataTableMapping("Table", "ReportData", New System.Data.Common.DataColumnMapping() {New System.Data.Common.DataColumnMapping("AnonReq", "AnonReq"), New System.Data.Common.DataColumnMapping("AutoID", "AutoID"), New System.Data.Common.DataColumnMapping("CallDate", "CallDate"), New System.Data.Common.DataColumnMapping("CallStatus", "CallStatus"), New System.Data.Common.DataColumnMapping("CBtime", "CBtime"), New System.Data.Common.DataColumnMapping("Comments", "Comments"), New System.Data.Common.DataColumnMapping("Confirmation", "Confirmation"), New System.Data.Common.DataColumnMapping("DOB", "DOB"), New System.Data.Common.DataColumnMapping("Fname", "Fname"), New System.Data.Common.DataColumnMapping("Lang", "Lang"), New System.Data.Common.DataColumnMapping("Lname", "Lname"), New System.Data.Common.DataColumnMapping("Phone", "Phone"), New System.Data.Common.DataColumnMapping("SID", "SID"), New System.Data.Common.DataColumnMapping("Subscriber", "Subscriber"), New System.Data.Common.DataColumnMapping("verified", "verified"), New System.Data.Common.DataColumnMapping("Verifiedby", "Verifiedby"), New System.Data.Common.DataColumnMapping("VerifiedDate", "VerifiedDate"), New System.Data.Common.DataColumnMapping("CallID", "CallID")})})
+        Me.myrepadapt.UpdateCommand = Me.OleDbUpdateCommand2
+        '
+        'OleDbDeleteCommand2
+        '
+        Me.OleDbDeleteCommand2.CommandText = "DELETE FROM ReportData WHERE (AutoID = ?) AND (AnonReq = ? OR ? IS NULL AND AnonR" & _
+        "eq IS NULL) AND (CBtime = ? OR ? IS NULL AND CBtime IS NULL) AND (CallDate = ? O" & _
+        "R ? IS NULL AND CallDate IS NULL) AND (CallID = ? OR ? IS NULL AND CallID IS NUL" & _
+        "L) AND (CallStatus = ? OR ? IS NULL AND CallStatus IS NULL) AND (Comments = ? OR" & _
+        " ? IS NULL AND Comments IS NULL) AND (Confirmation = ? OR ? IS NULL AND Confirma" & _
+        "tion IS NULL) AND (DOB = ? OR ? IS NULL AND DOB IS NULL) AND (Fname = ? OR ? IS " & _
+        "NULL AND Fname IS NULL) AND (Lang = ? OR ? IS NULL AND Lang IS NULL) AND (Lname " & _
+        "= ? OR ? IS NULL AND Lname IS NULL) AND (Phone = ? OR ? IS NULL AND Phone IS NUL" & _
+        "L) AND (SID = ? OR ? IS NULL AND SID IS NULL) AND (Subscriber = ? OR ? IS NULL A" & _
+        "ND Subscriber IS NULL) AND (VerifiedDate = ? OR ? IS NULL AND VerifiedDate IS NU" & _
+        "LL) AND (Verifiedby = ? OR ? IS NULL AND Verifiedby IS NULL) AND (verified = ?)"
+        Me.OleDbDeleteCommand2.Connection = Me.OleDbConnection1]
+		
+		'OleDbInsertCommand2
+        '
+        Me.OleDbInsertCommand2.CommandText = "INSERT INTO ReportData(AnonReq, CallDate, CallStatus, CBtime, Comments, Confirmat" & _
+        "ion, DOB, Fname, Lang, Lname, Phone, SID, Subscriber, verified, Verifiedby, Veri" & _
+        "fiedDate, CallID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+        Me.OleDbInsertCommand2.Connection = Me.OleDbConnection1
+        Me.OleDbInsertCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("AnonReq", System.Data.OleDb.OleDbType.VarWChar, 5, "AnonReq"))
+        Me.OleDbInsertCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("CallDate", System.Data.OleDb.OleDbType.DBDate, 0, "CallDate"))
+        Me.OleDbInsertCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("CallStatus", System.Data.OleDb.OleDbType.VarWChar, 50, "CallStatus"))
+        Me.OleDbInsertCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("CBtime", System.Data.OleDb.OleDbType.VarWChar, 25, "CBtime"))
+        Me.OleDbInsertCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Comments", System.Data.OleDb.OleDbType.VarWChar, 255, "Comments"))
+        Me.OleDbInsertCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Confirmation", System.Data.OleDb.OleDbType.VarWChar, 20, "Confirmation"))
+        Me.OleDbInsertCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("DOB", System.Data.OleDb.OleDbType.VarWChar, 50, "DOB"))
+        Me.OleDbInsertCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Fname", System.Data.OleDb.OleDbType.VarWChar, 20, "Fname"))
+        Me.OleDbInsertCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Lang", System.Data.OleDb.OleDbType.VarWChar, 10, "Lang"))
+        Me.OleDbInsertCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Lname", System.Data.OleDb.OleDbType.VarWChar, 20, "Lname"))
+        Me.OleDbInsertCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Phone", System.Data.OleDb.OleDbType.VarWChar, 50, "Phone"))
+        Me.OleDbInsertCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("SID", System.Data.OleDb.OleDbType.VarWChar, 10, "SID"))
+        Me.OleDbInsertCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Subscriber", System.Data.OleDb.OleDbType.VarWChar, 35, "Subscriber"))
+        Me.OleDbInsertCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("verified", System.Data.OleDb.OleDbType.Boolean, 2, "verified"))
+        Me.OleDbInsertCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Verifiedby", System.Data.OleDb.OleDbType.VarWChar, 20, "Verifiedby"))
+        Me.OleDbInsertCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("VerifiedDate", System.Data.OleDb.OleDbType.DBDate, 0, "VerifiedDate"))
+        Me.OleDbInsertCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("CallID", System.Data.OleDb.OleDbType.VarWChar, 20, "CallID"))
+        '
+        'OleDbSelectCommand2
+        '
+        Me.OleDbSelectCommand2.CommandText = "SELECT AnonReq, AutoID, CallDate, CallStatus, CBtime, Comments, Confirmation, DOB" & _
+        ", Fname, Lang, Lname, Phone, SID, Subscriber, verified, Verifiedby, VerifiedDate" & _
+        ", CallID FROM ReportData"
+        Me.OleDbSelectCommand2.Connection = Me.OleDbConnection1
+        '
+        'OleDbUpdateCommand2
+        '
+        Me.OleDbUpdateCommand2.CommandText = "UPDATE ReportData SET AnonReq = ?, CallDate = ?, CallStatus = ?, CBtime = ?, Comm" & _
+        "ents = ?, Confirmation = ?, DOB = ?, Fname = ?, Lang = ?, Lname = ?, Phone = ?, " & _
+        "SID = ?, Subscriber = ?, verified = ?, Verifiedby = ?, VerifiedDate = ?, CallID " & _
+        "= ? WHERE (AutoID = ?) AND (AnonReq = ? OR ? IS NULL AND AnonReq IS NULL) AND (C" & _
+        "Btime = ? OR ? IS NULL AND CBtime IS NULL) AND (CallDate = ? OR ? IS NULL AND Ca" & _
+        "llDate IS NULL) AND (CallID = ? OR ? IS NULL AND CallID IS NULL) AND (CallStatus" & _
+        " = ? OR ? IS NULL AND CallStatus IS NULL) AND (Comments = ? OR ? IS NULL AND Com" & _
+        "ments IS NULL) AND (Confirmation = ? OR ? IS NULL AND Confirmation IS NULL) AND " & _
+        "(DOB = ? OR ? IS NULL AND DOB IS NULL) AND (Fname = ? OR ? IS NULL AND Fname IS " & _
+        "NULL) AND (Lang = ? OR ? IS NULL AND Lang IS NULL) AND (Lname = ? OR ? IS NULL A" & _
+        "ND Lname IS NULL) AND (Phone = ? OR ? IS NULL AND Phone IS NULL) AND (SID = ? OR" & _
+        " ? IS NULL AND SID IS NULL) AND (Subscriber = ? OR ? IS NULL AND Subscriber IS N" & _
+        "ULL) AND (VerifiedDate = ? OR ? IS NULL AND VerifiedDate IS NULL) AND (Verifiedb" & _
+        "y = ? OR ? IS NULL AND Verifiedby IS NULL) AND (verified = ?)"
+        Me.OleDbUpdateCommand2.Connection = Me.OleDbConnection1
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("AnonReq", System.Data.OleDb.OleDbType.VarWChar, 5, "AnonReq"))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("CallDate", System.Data.OleDb.OleDbType.DBDate, 0, "CallDate"))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("CallStatus", System.Data.OleDb.OleDbType.VarWChar, 50, "CallStatus"))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("CBtime", System.Data.OleDb.OleDbType.VarWChar, 25, "CBtime"))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Comments", System.Data.OleDb.OleDbType.VarWChar, 255, "Comments"))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Confirmation", System.Data.OleDb.OleDbType.VarWChar, 20, "Confirmation"))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("DOB", System.Data.OleDb.OleDbType.VarWChar, 50, "DOB"))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Fname", System.Data.OleDb.OleDbType.VarWChar, 20, "Fname"))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Lang", System.Data.OleDb.OleDbType.VarWChar, 10, "Lang"))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Lname", System.Data.OleDb.OleDbType.VarWChar, 20, "Lname"))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Phone", System.Data.OleDb.OleDbType.VarWChar, 50, "Phone"))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("SID", System.Data.OleDb.OleDbType.VarWChar, 10, "SID"))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Subscriber", System.Data.OleDb.OleDbType.VarWChar, 35, "Subscriber"))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("verified", System.Data.OleDb.OleDbType.Boolean, 2, "verified"))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Verifiedby", System.Data.OleDb.OleDbType.VarWChar, 20, "Verifiedby"))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("VerifiedDate", System.Data.OleDb.OleDbType.DBDate, 0, "VerifiedDate"))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("CallID", System.Data.OleDb.OleDbType.VarWChar, 20, "CallID"))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_AutoID", System.Data.OleDb.OleDbType.Integer, 0, System.Data.ParameterDirection.Input, False, CType(10, Byte), CType(0, Byte), "AutoID", System.Data.DataRowVersion.Original, Nothing))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_AnonReq", System.Data.OleDb.OleDbType.VarWChar, 5, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "AnonReq", System.Data.DataRowVersion.Original, Nothing))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_AnonReq1", System.Data.OleDb.OleDbType.VarWChar, 5, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "AnonReq", System.Data.DataRowVersion.Original, Nothing))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_CBtime", System.Data.OleDb.OleDbType.VarWChar, 25, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "CBtime", System.Data.DataRowVersion.Original, Nothing))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_CBtime1", System.Data.OleDb.OleDbType.VarWChar, 25, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "CBtime", System.Data.DataRowVersion.Original, Nothing))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_CallDate", System.Data.OleDb.OleDbType.DBDate, 0, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "CallDate", System.Data.DataRowVersion.Original, Nothing))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_CallDate1", System.Data.OleDb.OleDbType.DBDate, 0, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "CallDate", System.Data.DataRowVersion.Original, Nothing))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_CallID", System.Data.OleDb.OleDbType.VarWChar, 20, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "CallID", System.Data.DataRowVersion.Original, Nothing))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_CallID1", System.Data.OleDb.OleDbType.VarWChar, 20, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "CallID", System.Data.DataRowVersion.Original, Nothing))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_CallStatus", System.Data.OleDb.OleDbType.VarWChar, 50, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "CallStatus", System.Data.DataRowVersion.Original, Nothing))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_CallStatus1", System.Data.OleDb.OleDbType.VarWChar, 50, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "CallStatus", System.Data.DataRowVersion.Original, Nothing))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_Comments", System.Data.OleDb.OleDbType.VarWChar, 255, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Comments", System.Data.DataRowVersion.Original, Nothing))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_Comments1", System.Data.OleDb.OleDbType.VarWChar, 255, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Comments", System.Data.DataRowVersion.Original, Nothing))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_Confirmation", System.Data.OleDb.OleDbType.VarWChar, 20, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Confirmation", System.Data.DataRowVersion.Original, Nothing))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_Confirmation1", System.Data.OleDb.OleDbType.VarWChar, 20, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Confirmation", System.Data.DataRowVersion.Original, Nothing))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_DOB", System.Data.OleDb.OleDbType.VarWChar, 50, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "DOB", System.Data.DataRowVersion.Original, Nothing))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_DOB1", System.Data.OleDb.OleDbType.VarWChar, 50, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "DOB", System.Data.DataRowVersion.Original, Nothing))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_Fname", System.Data.OleDb.OleDbType.VarWChar, 20, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Fname", System.Data.DataRowVersion.Original, Nothing))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_Fname1", System.Data.OleDb.OleDbType.VarWChar, 20, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Fname", System.Data.DataRowVersion.Original, Nothing))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_Lang", System.Data.OleDb.OleDbType.VarWChar, 10, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Lang", System.Data.DataRowVersion.Original, Nothing))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_Lang1", System.Data.OleDb.OleDbType.VarWChar, 10, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Lang", System.Data.DataRowVersion.Original, Nothing))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_Lname", System.Data.OleDb.OleDbType.VarWChar, 20, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Lname", System.Data.DataRowVersion.Original, Nothing))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_Lname1", System.Data.OleDb.OleDbType.VarWChar, 20, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Lname", System.Data.DataRowVersion.Original, Nothing))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_Phone", System.Data.OleDb.OleDbType.VarWChar, 50, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Phone", System.Data.DataRowVersion.Original, Nothing))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_Phone1", System.Data.OleDb.OleDbType.VarWChar, 50, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Phone", System.Data.DataRowVersion.Original, Nothing))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_SID", System.Data.OleDb.OleDbType.VarWChar, 10, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "SID", System.Data.DataRowVersion.Original, Nothing))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_SID1", System.Data.OleDb.OleDbType.VarWChar, 10, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "SID", System.Data.DataRowVersion.Original, Nothing))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_Subscriber", System.Data.OleDb.OleDbType.VarWChar, 35, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Subscriber", System.Data.DataRowVersion.Original, Nothing))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_Subscriber1", System.Data.OleDb.OleDbType.VarWChar, 35, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Subscriber", System.Data.DataRowVersion.Original, Nothing))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_VerifiedDate", System.Data.OleDb.OleDbType.DBDate, 0, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "VerifiedDate", System.Data.DataRowVersion.Original, Nothing))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_VerifiedDate1", System.Data.OleDb.OleDbType.DBDate, 0, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "VerifiedDate", System.Data.DataRowVersion.Original, Nothing))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_Verifiedby", System.Data.OleDb.OleDbType.VarWChar, 20, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Verifiedby", System.Data.DataRowVersion.Original, Nothing))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_Verifiedby1", System.Data.OleDb.OleDbType.VarWChar, 20, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Verifiedby", System.Data.DataRowVersion.Original, Nothing))
+        Me.OleDbUpdateCommand2.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_verified", System.Data.OleDb.OleDbType.Boolean, 2, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "verified", System.Data.DataRowVersion.Original, Nothing))
+        '
+		
+		        Me.L7013.Location = New System.Drawing.Point(408, 248)
+        Me.L7013.Name = "L7013"
+        Me.L7013.OcxState = CType(resources.GetObject("L7013.OcxState"), System.Windows.Forms.AxHost.State)
+        Me.L7013.Size = New System.Drawing.Size(40, 60)
+        Me.L7013.TabIndex = 50
+        Me.L7013.Visible = True
+        '
+        'L7012
+        '
+        Me.L7012.Location = New System.Drawing.Point(592, 2288)
+        Me.L7012.Name = "L7012"
+        Me.L7012.OcxState = CType(resources.GetObject("L7012.OcxState"), System.Windows.Forms.AxHost.State)
+        Me.L7012.Size = New System.Drawing.Size(40, 60)
+        Me.L7012.TabIndex = 51
+        Me.L7012.Visible = True
+        '
+        'L6006
+        '
+        Me.L6006.Location = New System.Drawing.Point(96, 2224)
+        Me.L6006.Name = "L6006"
+        Me.L6006.OcxState = CType(resources.GetObject("L6006.OcxState"), System.Windows.Forms.AxHost.State)
+        Me.L6006.Size = New System.Drawing.Size(46, 65)
+        Me.L6006.TabIndex = 53
+        Me.L6006.Visible = True
+        '
+        'PlaySpecial
+        '
+        Me.PlaySpecial.Location = New System.Drawing.Point(288, 351)
+        Me.PlaySpecial.Name = "PlaySpecial"
+        Me.PlaySpecial.OcxState = CType(resources.GetObject("PlaySpecial.OcxState"), System.Windows.Forms.AxHost.State)
+        Me.PlaySpecial.Size = New System.Drawing.Size(65, 50)
+        Me.PlaySpecial.TabIndex = 54
+        Me.PlaySpecial.Visible = True
+        '
+        'Linestatus1
+        '
+        Me.Linestatus1.Enabled = True
+        Me.Linestatus1.Location = New System.Drawing.Point(16, 416)
+        Me.Linestatus1.Name = "Linestatus1"
+        Me.Linestatus1.OcxState = CType(resources.GetObject("Linestatus1.OcxState"), System.Windows.Forms.AxHost.State)
+        Me.Linestatus1.Size = New System.Drawing.Size(647, 40)
+        Me.Linestatus1.TabIndex = 55
+        Me.Linestatus1.TabStop = False
+        '
+        'Myrepdata1
+        '
+        Me.Myrepdata1.DataSetName = "myrepdata"
+        Me.Myrepdata1.Locale = New System.Globalization.CultureInfo("en-US")
+        Me.Myrepdata1.Namespace = "http://www.tempuri.org/myrepdata.xsd"
+        '
+        'OleDbSelectCommand1
+        '
+        Me.OleDbSelectCommand1.CommandText = "SELECT CallID, Dcollect, id, QID FROM Respdata"
+        Me.OleDbSelectCommand1.Connection = Me.OleDbConnection1
+        '
+        'OleDbInsertCommand1
+        '
+        Me.OleDbInsertCommand1.CommandText = "INSERT INTO Respdata(CallID, Dcollect, QID) VALUES (?, ?, ?)"
+        Me.OleDbInsertCommand1.Connection = Me.OleDbConnection1
+        Me.OleDbInsertCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("CallID", System.Data.OleDb.OleDbType.VarWChar, 20, "CallID"))
+        Me.OleDbInsertCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Dcollect", System.Data.OleDb.OleDbType.VarWChar, 10, "Dcollect"))
+        Me.OleDbInsertCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("QID", System.Data.OleDb.OleDbType.VarWChar, 5, "QID"))
+        '
+        'OleDbUpdateCommand1
+        '
+        Me.OleDbUpdateCommand1.CommandText = "UPDATE Respdata SET CallID = ?, Dcollect = ?, QID = ? WHERE (id = ?) AND (CallID " & _
+        "= ? OR ? IS NULL AND CallID IS NULL) AND (Dcollect = ? OR ? IS NULL AND Dcollect" & _
+        " IS NULL) AND (QID = ? OR ? IS NULL AND QID IS NULL)"
+        Me.OleDbUpdateCommand1.Connection = Me.OleDbConnection1
+        Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("CallID", System.Data.OleDb.OleDbType.VarWChar, 20, "CallID"))
+        Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Dcollect", System.Data.OleDb.OleDbType.VarWChar, 10, "Dcollect"))
+        Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("QID", System.Data.OleDb.OleDbType.VarWChar, 5, "QID"))
+        Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_id", System.Data.OleDb.OleDbType.Integer, 0, System.Data.ParameterDirection.Input, False, CType(10, Byte), CType(0, Byte), "id", System.Data.DataRowVersion.Original, Nothing))
+        Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_CallID", System.Data.OleDb.OleDbType.VarWChar, 20, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "CallID", System.Data.DataRowVersion.Original, Nothing))
+        Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_CallID1", System.Data.OleDb.OleDbType.VarWChar, 20, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "CallID", System.Data.DataRowVersion.Original, Nothing))
+        Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_Dcollect", System.Data.OleDb.OleDbType.VarWChar, 10, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Dcollect", System.Data.DataRowVersion.Original, Nothing))
+        Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_Dcollect1", System.Data.OleDb.OleDbType.VarWChar, 10, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Dcollect", System.Data.DataRowVersion.Original, Nothing))
+        Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_QID", System.Data.OleDb.OleDbType.VarWChar, 5, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "QID", System.Data.DataRowVersion.Original, Nothing))
+        Me.OleDbUpdateCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_QID1", System.Data.OleDb.OleDbType.VarWChar, 5, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "QID", System.Data.DataRowVersion.Original, Nothing))
+        '
+        'OleDbDeleteCommand1
+        '
+        Me.OleDbDeleteCommand1.CommandText = "DELETE FROM Respdata WHERE (id = ?) AND (CallID = ? OR ? IS NULL AND CallID IS NU" & _
+        "LL) AND (Dcollect = ? OR ? IS NULL AND Dcollect IS NULL) AND (QID = ? OR ? IS NU" & _
+        "LL AND QID IS NULL)"
+        Me.OleDbDeleteCommand1.Connection = Me.OleDbConnection1
+        Me.OleDbDeleteCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_id", System.Data.OleDb.OleDbType.Integer, 0, System.Data.ParameterDirection.Input, False, CType(10, Byte), CType(0, Byte), "id", System.Data.DataRowVersion.Original, Nothing))
+        Me.OleDbDeleteCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_CallID", System.Data.OleDb.OleDbType.VarWChar, 20, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "CallID", System.Data.DataRowVersion.Original, Nothing))
+        Me.OleDbDeleteCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_CallID1", System.Data.OleDb.OleDbType.VarWChar, 20, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "CallID", System.Data.DataRowVersion.Original, Nothing))
+        Me.OleDbDeleteCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_Dcollect", System.Data.OleDb.OleDbType.VarWChar, 10, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Dcollect", System.Data.DataRowVersion.Original, Nothing))
+        Me.OleDbDeleteCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_Dcollect1", System.Data.OleDb.OleDbType.VarWChar, 10, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "Dcollect", System.Data.DataRowVersion.Original, Nothing))
+        Me.OleDbDeleteCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_QID", System.Data.OleDb.OleDbType.VarWChar, 5, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "QID", System.Data.DataRowVersion.Original, Nothing))
+        Me.OleDbDeleteCommand1.Parameters.Add(New System.Data.OleDb.OleDbParameter("Original_QID1", System.Data.OleDb.OleDbType.VarWChar, 5, System.Data.ParameterDirection.Input, False, CType(0, Byte), CType(0, Byte), "QID", System.Data.DataRowVersion.Original, Nothing))
+        '
+        'Main
+        '
+        Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
+        Me.ClientSize = New System.Drawing.Size(768, 590)
+        Me.Controls.AddRange(New System.Windows.Forms.Control() {Me.Linestatus1, Me.PlaySpecial, Me.L6006, Me.L7012, Me.L7013, Me.ConfCOID, Me.L7014, Me.Confirmation, Me.L7010, Me.ConfBest, Me.L7009, Me.GetCoID, Me.L7005, Me.ConfACPhone, Me.confDOB, Me.L7008, Me.L7007, Me.L7004, Me.L7003, Me.L7002, Me.L7001, Me.L7000, Me.openstatment, Me.User1, Me.Playresponse, Me.LangSelect, Me.Spanish, Me.InitGreet, Me.OnHook1, Me.Msurvey, Me.LineGroup1, Me.VbvFrame1, Me.checkdata, Me.VolumeControl, Me.LblVolume, Me.SpeedControl, Me.LblSpeed, Me.cmdStop, Me.cmdStart})
+        Me.Name = "Main"
+        Me.Text = "CorpAcc Hotline V4.0 .NET"
+        CType(Me.VbvFrame1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.LineGroup1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Msurvey, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.OnHook1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.InitGreet, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Spanish, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.LangSelect, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Playresponse, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.User1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.SpeedControl, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.VolumeControl, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.openstatment, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.L7000, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.L7001, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.L7002, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.L7003, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.L7004, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.L7007, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.L7008, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.confDOB, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.ConfACPhone, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.L7005, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.GetCoID, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.L7009, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.ConfBest, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.L7010, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Confirmation, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.L7014, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.ConfCOID, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.L7013, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.L7012, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.L6006, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PlaySpecial, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Linestatus1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Myrepdata1, System.ComponentModel.ISupportInitialize).EndInit()
+		
