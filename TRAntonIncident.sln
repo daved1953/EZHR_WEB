@@ -1,9 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TRAntonIncident", "TRAntonIncident\TRAntonIncident.csproj", "{0E284FA2-74C0-459A-8087-A98C9C7D802F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EZHRWeb_DB", "TRAntonIncident\EXHRWeb_DB\EZHRWeb_DB.csproj", "{746DD592-204E-449E-9934-7AB37A64A3BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EZHRWeb_DBTest", "TRAntonIncident\EZHRWeb_DBTest\EZHRWeb_DBTest.csproj", "{F0C09E7F-10A5-4C4C-B361-B769862608E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EZHRWeb_Business", "TRAntonIncident\EZHRWeb_Business\EZHRWeb_Business.csproj", "{C45E67AE-0459-4980-8CFB-9DA40921B9AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EZHRWeb_Interfaces", "TRAntonIncident\EZHRWeb_Interfaces\EZHRWeb_Interfaces.csproj", "{2A62E226-CF92-4C9D-9F6B-53E8BBA7E778}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EZHRWeb_Interfaces.Tests", "TRAntonIncident\EZHRWeb_Interfaces.Tests\EZHRWeb_Interfaces.Tests.csproj", "{D69618E4-733F-43FC-9A76-852BC82B940D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EZHR_Web", "TRAntonIncident\EZHRWeb\EZHR_Web.csproj", "{0E284FA2-74C0-459A-8087-A98C9C7D802F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,6 +21,26 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{746DD592-204E-449E-9934-7AB37A64A3BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{746DD592-204E-449E-9934-7AB37A64A3BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{746DD592-204E-449E-9934-7AB37A64A3BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{746DD592-204E-449E-9934-7AB37A64A3BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0C09E7F-10A5-4C4C-B361-B769862608E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0C09E7F-10A5-4C4C-B361-B769862608E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0C09E7F-10A5-4C4C-B361-B769862608E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0C09E7F-10A5-4C4C-B361-B769862608E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C45E67AE-0459-4980-8CFB-9DA40921B9AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C45E67AE-0459-4980-8CFB-9DA40921B9AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C45E67AE-0459-4980-8CFB-9DA40921B9AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C45E67AE-0459-4980-8CFB-9DA40921B9AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A62E226-CF92-4C9D-9F6B-53E8BBA7E778}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A62E226-CF92-4C9D-9F6B-53E8BBA7E778}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A62E226-CF92-4C9D-9F6B-53E8BBA7E778}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A62E226-CF92-4C9D-9F6B-53E8BBA7E778}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D69618E4-733F-43FC-9A76-852BC82B940D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D69618E4-733F-43FC-9A76-852BC82B940D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D69618E4-733F-43FC-9A76-852BC82B940D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D69618E4-733F-43FC-9A76-852BC82B940D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0E284FA2-74C0-459A-8087-A98C9C7D802F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0E284FA2-74C0-459A-8087-A98C9C7D802F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E284FA2-74C0-459A-8087-A98C9C7D802F}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -18,5 +48,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0D81C7B0-4216-49F7-B732-A0B10C30D0F9}
 	EndGlobalSection
 EndGlobal
