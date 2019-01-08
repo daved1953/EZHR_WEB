@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EXHRWeb_DB.Properties {
+namespace EZHRWeb_DB.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

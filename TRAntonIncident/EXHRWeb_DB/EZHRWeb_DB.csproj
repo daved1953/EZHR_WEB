@@ -7,8 +7,8 @@
     <ProjectGuid>{746DD592-204E-449E-9934-7AB37A64A3BF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EXHRWeb_DB</RootNamespace>
-    <AssemblyName>EXHRWeb_DB</AssemblyName>
+    <RootNamespace>EZHRWeb_DB</RootNamespace>
+    <AssemblyName>EZHRWeb_DB</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -31,11 +31,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=8.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AutoMapper.8.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Data.Services.Client" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,11 +52,9 @@
   <ItemGroup>
     <Compile Include="DbInterface\BaseDb.cs" />
     <Compile Include="DbInterface\InitIncident.cs" />
-    <Compile Include="DbInterface\QMaster.cs" />
-    <Compile Include="DbInterface\QType.cs" />
-    <Compile Include="DbInterface\ReportData.cs" />
-    <Compile Include="DbInterface\Respdata.cs" />
     <Compile Include="DbInterface\IWebDbInterface.cs" />
+    <Compile Include="DbInterface\SaveIncidentData.cs" />
+    <Compile Include="Helpers\MapHelper.cs" />
     <Compile Include="Models\DMakerDto.cs" />
     <Compile Include="Models\QMasterDto.cs" />
     <Compile Include="Models\ReportDataDto.cs" />
@@ -67,6 +71,7 @@
   <ItemGroup />
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

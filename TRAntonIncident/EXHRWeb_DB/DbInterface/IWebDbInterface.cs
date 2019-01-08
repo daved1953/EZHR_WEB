@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using EXHRWeb_DB.Models;
+using EZHRWeb_DB.Models;
 
-namespace EXHRWeb_DB
+namespace EZHRWeb_DB
 {
-    interface IWebDbInterface
+   public interface IWebDbInterface
     {
         #region InitIncident
         Task<List<SampleCallFlowDto>> GetSampleCallFlow();

@@ -1,5 +1,5 @@
-﻿using EXHRWeb_DB.DbInterface;
-using EXHRWeb_DB.Models;
+﻿using EZHRWeb_DB.DbInterface;
+using EZHRWeb_DB.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -11,12 +11,12 @@ namespace EZHRWeb_DBTest
     public class DbInterfaceTest
     {
 
-        public EXHRWeb_DB.DbInterface.IntIncident tdb;
+        public EZHRWeb_DB.DbInterface.InitIncident tdb;
 
         [TestInitialize]
         public void TestStart()
         {
-            tdb = new IntIncident();
+            tdb = new InitIncident();
 
         }
         

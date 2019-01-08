@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EZHRWeb_Business.Models;
 
 namespace EZHRWeb_Business.Interface
 {
-    interface IWebBusInterface
+   public  interface IWebBusInterface
     {
+        Task<IncidentInput> InitIncidentObj();
+        
     }
 }

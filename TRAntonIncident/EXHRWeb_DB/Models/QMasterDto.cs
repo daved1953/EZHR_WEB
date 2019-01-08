@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EXHRWeb_DB.Models
+namespace EZHRWeb_DB.Models
 {
    public  class QMasterDto
     {

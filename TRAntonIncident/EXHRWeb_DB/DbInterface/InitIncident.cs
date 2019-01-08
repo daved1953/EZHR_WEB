@@ -1,17 +1,18 @@
-﻿using EXHRWeb_DB.Models;
+﻿using EZHRWeb_DB.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
+using EZHRWeb_DB.DbInterface;
 
-namespace EXHRWeb_DB.DbInterface
+namespace EZHRWeb_DB.DbInterface
 {
-    public class IntIncident : BaseDb
+    public class InitIncident : BaseDb
     {
         public SqlConnection sqlConn;
 
-        public IntIncident()
+        public InitIncident()
         {
             sqlConn = new SqlConnection(SqlConn);
         }

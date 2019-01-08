@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Configuration;
 
-namespace EXHRWeb_DB.DbInterface
+namespace EZHRWeb_DB.DbInterface
 {
     public class BaseDb
     {
