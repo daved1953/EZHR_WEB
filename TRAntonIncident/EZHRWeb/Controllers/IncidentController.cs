@@ -10,12 +10,12 @@ using EZHRWeb_Business.Models;
 
 namespace EZHR_Web.Controllers
 {
-    public class Incident :Controller
+    public class IncidentController :Controller
     {
 
         public IWebBusInterface BI ;
 
-        public Incident() :base()
+        public IncidentController() :base()
         {
           
         }
