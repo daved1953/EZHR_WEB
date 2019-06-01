@@ -9,28 +9,31 @@
    
 </head>
 <body>
-    <div class="navbar  navbar-fixed-top icon-bar" style="background-color: lightsteelblue ">
-        <img src="~/Content/images/ezhrlogovt.gif" />
-        <div class="container">
-            <div class="navbar-header text-info">
+    <div class="navbar navbar-fixed-top" style="background-color: lightsteelblue ">
+        <div class="container">             <a align="left" href="https://www.ezhrvt.com/"><img style="height:50px;" src="~/Content/images/ezhrlogovt.gif" alt="EZHR Video Training" /> </a>
+
+            <!-- <div class="navbar-header text-info">-->
+            <ul class="nav navbar-nav" style="font-size: 25px; backcolor:white; ">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
+                    span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-              </div>
+                <li>  @Html.ActionLink("EZHR_Incident Reporting", "Index", "Home")</li>
+                <li>@Html.ActionLink("About", "About", "Home")</li>
+                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                <li>
+
+                </li>
+
+            </ul>
+        </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav" style="font-size: 25px; backcolor:white; ">
-                    <li>  @Html.ActionLink("EZHR_Incident Reporting", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li> <a href="https://www.ezhrvt.com/">EZHR Video Training </a>
-                    </li>
-                    </ul>
+               
             </div>
         </div>
-    </div>
+     
     <div class="container body-content">
         @RenderBody()
         <hr />

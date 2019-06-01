@@ -23,7 +23,7 @@ namespace EZHR_Web.Controllers
         public async Task<ActionResult> StartIncident()
         {
            IncidentInput myIncident = await InitDatastructure();
-           return PartialView("IncidentStart", myIncident);
+           return PartialView("SignIn", myIncident);
         }
 
         public ActionResult ProcessSignin(IncidentInput myIncident)

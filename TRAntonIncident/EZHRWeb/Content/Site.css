@@ -32,3 +32,14 @@ textarea {
 .sidebar {
     display: none;
 }
+
+.ta-back {
+   background-color: #6d73dd;
+    text-decoration-style: none;
+        
+}
+
+.ta-border {
+   border: 3px solid;   
+}
+

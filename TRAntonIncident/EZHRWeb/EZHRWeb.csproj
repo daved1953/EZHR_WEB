@@ -158,6 +158,7 @@
     <Content Include="Content\images\accent.png" />
     <Content Include="Content\images\bullet.png" />
     <Content Include="Content\images\EZHRLogoVT.gif" />
+    <Content Include="Content\images\EZHRVT.gif" />
     <Content Include="Content\images\Flag_of_Mexico.gif" />
     <Content Include="Content\images\Flag_of_Us.gif" />
     <Content Include="Content\images\france-flag.gif" />
@@ -235,6 +236,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <None Include="Views\Incident\SignIn.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -245,6 +247,9 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\Examples\_LayoutEliteAdmin.cshtml" />
+    <Content Include="Views\Shared\Examples\_LayoutEliteAdminNoNav.cshtml" />
+    <Content Include="Views\Shared\Examples\_LayoutEliteAdminSingleNav.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
@@ -301,7 +306,9 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>59013</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://Dell_T1500/EZHRWeb</IISUrl>
+          <IISUrl>http://localhost/EZHRIncident</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://DellT1500/EZHRIncident</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
