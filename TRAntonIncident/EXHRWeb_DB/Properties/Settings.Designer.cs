@@ -25,8 +25,8 @@ namespace EZHRWeb_DB.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("\"Data Source=192.168.1.85,1433;Network Library=DBMSSOCN;Initial Catalog=CorpACCHL" +
-            ";User ID=BEARS;Password=EZHR;\"")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=dellt1500;Initial Catalog=CorpACCHL;Integrated Security=false;Multipl" +
+            "eActiveResultSets=True;User ID=BEARS;Password=EZHR;")]
         public string SqlComm {
             get {
                 return ((string)(this["SqlComm"]));

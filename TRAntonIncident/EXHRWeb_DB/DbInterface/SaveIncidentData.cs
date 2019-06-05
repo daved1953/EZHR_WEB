@@ -39,7 +39,9 @@ namespace EZHRWeb_DB.DbInterface
         public bool SaveRepData(List<ReportDataDto> request)
         {
             // insert record into RepData  from list object called at endof Incident input  
-        
+                 
+
+
              return true;
         }
 

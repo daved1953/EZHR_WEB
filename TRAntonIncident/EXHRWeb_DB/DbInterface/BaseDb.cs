@@ -9,7 +9,7 @@ namespace EZHRWeb_DB.DbInterface
 
         public BaseDb()
         {
-            SqlConn = ConfigurationManager.AppSettings["SqlComm"];
+            SqlConn = Properties.Settings.Default.SqlComm;
 
         }
 

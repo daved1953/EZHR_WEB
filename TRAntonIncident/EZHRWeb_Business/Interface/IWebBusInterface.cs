@@ -9,7 +9,7 @@ namespace EZHRWeb_Business.Interface
 {
    public  interface IWebBusInterface
     {
-        Task<IncidentInput> InitIncidentObj();
+        IncidentInput InitIncidentObj();
         
     }
 }

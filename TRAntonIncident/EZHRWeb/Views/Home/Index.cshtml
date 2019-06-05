@@ -2,6 +2,22 @@
     ViewBag.Title = "Home Page";
 }
 
+<script>
+    function ClickButton1() {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("StartIncident", "Incident")',
+            async: true,
+            success: function (msg) {
+                ServiceSucceeded(msg);
+            },
+            error: function () {
+                return "error";
+            }
+        });
+    }
+</script>
+
 <div class="ta-back ta-border ">
 <div class="panel">
     <p class="lead">
@@ -13,7 +29,10 @@
         We request certain information to help investigate this incident, but you can also indicate on the next screen
         if you care to remain anonymous in reporting this incident.
     </p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Start an Incident report.</a></p>
+    <p>
+        <input id="Button1" type="button" value="Start an Incident report" onclick="ClickButton1()">
+      
+    </p>
 </div>
 </div>
 

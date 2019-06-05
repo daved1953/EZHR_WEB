@@ -17,38 +17,37 @@ namespace EZHR_Web.Controllers
 
         public IncidentController() :base()
         {
-          
+            BI = new Incident();
         }
-
-        public async Task<ActionResult> StartIncident()
+        [HttpPost]
+        public ActionResult StartIncident()
         {
-           IncidentInput myIncident = await InitDatastructure();
+           IncidentInput myIncident =   InitDatastructure();
+
+
            return PartialView("SignIn", myIncident);
         }
 
+        [HttpPost]
         public ActionResult ProcessSignin(IncidentInput myIncident)
         {
             // save the name anaonymouse and phone number and email input.
-
-
-
+            
 
 
            /// call  the first question past 5000. 
 
            return PartialView("FirstQuestion", myIncident);
         }
+        
 
 
-
-
-
-
-
-
-        private Task<IncidentInput> InitDatastructure()
+        private  IncidentInput InitDatastructure()
         {
-           return Task.Run(async() => await BI.InitIncidentObj());
+            IncidentInput oreportincident;
+            oreportincident= BI.InitIncidentObj();
+
+            return oreportincident; 
         }
             
 

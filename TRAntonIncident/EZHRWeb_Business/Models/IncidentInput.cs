@@ -14,7 +14,14 @@ namespace EZHRWeb_Business.Models
         public string QID { get; set; }
         public string Qmasterrqid { get; set; }
 
+        public QMaster  currentQMaster { get; set; }
+
+        public DMaker currentDMaker {get;set;}
+
+        public SampleCallFlow currentHeadCallFlow { get; set; }
+
         public List<QMaster> qMaster { get; set; }
+
         public List<DMaker> dMaker { get; set; }
 
         public List<RespData> responses { get; set; }
@@ -25,7 +32,8 @@ namespace EZHRWeb_Business.Models
 
         public IncidentInput()
         {
-            QID = "WEB-" + String.Format("MMDDYYYHHmmss", DateTime.Now);
+            QID = "WEB-" + DateTime.Now.ToString("MMDDYYYHHmmss");
+          //  QID = "WEB-" + DateTime.Now.ToString("ddyyssmmMMHH-0");
         }
     }
 }

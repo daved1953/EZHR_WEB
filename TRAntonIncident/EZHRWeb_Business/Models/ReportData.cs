@@ -8,7 +8,7 @@ namespace EZHRWeb_Business.Models
 {
     public class ReportData
     {
-        public string AnonReq { get; set; }
+        public bool AnonReq { get; set; }
         public Int32 AutoID { get; set; }
         public DateTime CallDate { get; set; }
         public string CallID { get; set; }
@@ -28,6 +28,7 @@ namespace EZHRWeb_Business.Models
         public bool verified { get; set; }
         public string Verifiedby { get; set; }
         public DateTime VerifiedDate { get; set; }
+        public string Email { get; set; }
 
         public ReportData()
         {

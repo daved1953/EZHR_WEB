@@ -21,7 +21,7 @@ namespace EZHRWeb_DB.DbInterface
         /// loads Dmake default values.
         /// </summary>
         /// <returns></returns>
-        public async Task<List<DMakerDto>> SelectAllDMaker()
+        public List<DMakerDto> SelectAllDMaker()
         {
             List<DMakerDto> requesteddata = new List<DMakerDto>();
             using (SqlConnection sqlconn = sqlConn)
@@ -31,7 +31,7 @@ namespace EZHRWeb_DB.DbInterface
                 sqlconn.Open();
                 cmd.CommandType = CommandType.StoredProcedure;
 
-                SqlDataReader reader = await cmd.ExecuteReaderAsync();
+                SqlDataReader reader = cmd.ExecuteReader();
 
                 while (reader.Read())
                 {
@@ -129,7 +129,7 @@ namespace EZHRWeb_DB.DbInterface
         /// Qmaster details
         /// </summary>
         /// <returns></returns>
-        public async Task<List<QMasterDto>> GetQMaster()
+        public List<QMasterDto> GetQMaster()
         {
             List<QMasterDto> qmasters = new List<QMasterDto>();
 
@@ -141,7 +141,7 @@ namespace EZHRWeb_DB.DbInterface
 
                 cmd.CommandType = CommandType.StoredProcedure;
 
-                SqlDataReader result = await cmd.ExecuteReaderAsync();
+                SqlDataReader result = cmd.ExecuteReader();
 
                 while (result.Read())
                 {
@@ -163,7 +163,7 @@ namespace EZHRWeb_DB.DbInterface
         /// SampleCallFLow items
         /// </summary>
         /// <returns></returns>
-        public async Task<List<SampleCallFlowDto>> GetSampleCallFlow()
+        public List<SampleCallFlowDto> GetSampleCallFlow()
         {
             List<SampleCallFlowDto> returnresult = new List<SampleCallFlowDto>();
             using (SqlConnection sqlconn = sqlConn)
@@ -174,7 +174,7 @@ namespace EZHRWeb_DB.DbInterface
 
                 cmd.CommandType = CommandType.StoredProcedure;
 
-                SqlDataReader result = await cmd.ExecuteReaderAsync();
+                SqlDataReader result =  cmd.ExecuteReader();
 
                 while (result.Read())
                 {
@@ -204,7 +204,7 @@ namespace EZHRWeb_DB.DbInterface
         /// ReportData Template
         /// </summary>
         /// <returns></returns>
-        public async Task<ReportDataDto> GetReportDataTemplate()
+        public ReportDataDto GetReportDataTemplate()
         {
             ReportDataDto newReportData = new ReportDataDto();
 
@@ -216,7 +216,7 @@ namespace EZHRWeb_DB.DbInterface
 
                 cmd.CommandType = CommandType.StoredProcedure;
 
-                SqlDataReader result = await cmd.ExecuteReaderAsync();
+                SqlDataReader result =  cmd.ExecuteReader();
 
                 while (result.Read())
                 {
@@ -251,7 +251,7 @@ namespace EZHRWeb_DB.DbInterface
         /// GetResponseDataTemplate 
         /// </summary>
         /// <returns></returns>
-        public async Task<RespDataDto> GetRespDataTemplate()
+        public RespDataDto GetRespDataTemplate()
         {
             RespDataDto newRespData = new RespDataDto();
 
@@ -262,7 +262,7 @@ namespace EZHRWeb_DB.DbInterface
 
                 cmd.CommandType = CommandType.StoredProcedure;
 
-                SqlDataReader result = await cmd.ExecuteReaderAsync();
+                SqlDataReader result = cmd.ExecuteReader();
 
                 while (result.Read())
                 {

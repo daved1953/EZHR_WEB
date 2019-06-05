@@ -25,7 +25,7 @@ namespace EZHR_Web.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=CHI-DOLSONDA-W7;Initial Catalog=CorpAccHL;Integrated Security=True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Server=Localhost;database=CorpAccHL;Integrated Security=True")]
         public string DatabaseConnection {
             get {
                 return ((string)(this["DatabaseConnection"]));

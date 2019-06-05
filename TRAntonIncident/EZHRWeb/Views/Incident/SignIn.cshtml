@@ -1,5 +1,54 @@
 ﻿@model EZHRWeb_Business.Models.IncidentInput
 
+
+<script type="text/javascript">
+
+    function PPI_LookupDetailOnBegin(xhr) {
+        //$('#LoadCompanyDetailAndItems').attr('disabled', true);
+        BeginAjaxClient(xhr);
+        return true;
+    };
+
+    $(function () {
+
+        //on change of a checkbox, fix coloring
+        //$('input:checkbox[id^="i_Selected"]').change(function () {
+        $('input:checkbox.lineCheckbox').change(function () {
+
+            //$("input:checkbox[id='i_Selected']:checked").each(function () {
+            $('input:checkbox.lineCheckbox:checked').each(function () {
+                var lineId = $(this).data('lineitemid');
+                $('#heading_' + lineId).removeClass('bg-light');
+                $('#heading_' + lineId).addClass('bg-success');
+                $('#collapse_' + $(this).data('lineitemid')).collapse('show');
+
+
+            });
+
+            //$("input:checkbox[id='i_Selected']:not(:checked)").each(function () {
+            $("input:checkbox.lineCheckbox:not(:checked)").each(function () {
+                var lineId = $(this).data('lineitemid');
+                $('#heading_' + lineId).addClass('bg-light');
+                $('#heading_' + lineId).removeClass('bg-success');
+                $('#collapse_' + lineId).collapse('hide');
+            });
+
+        });
+
+        $.fn.datepicker.defaults.autoclose = true;
+        $.fn.datepicker.defaults.format = 'mm/dd/yyyy';
+
+        //$('#CofCCreate').submit(function () {
+
+        //    if ($(this).valid()) {
+        //        $("#coc_submit_indicator").modal('show');
+        //        $('#printcoc').prop('disabled',true);    
+        //    }
+    });
+
+        PPI_ReapplyValidation();
+    });
+    </script>
 <div class="ta-back ta-border ">
     <div class="panel">
         <div class="row">
@@ -10,21 +59,43 @@
                 </p>
                 <p>
                     Enter your name
-                    
+                    @Html.TextBoxFor(m => m.reportData.Fname);  @Html.TextBoxFor(m => m.reportData.Lname);
                 </p>
                 <p>
-                    Enter you date of birth  [MM/DD/YYYY]
-                </p>
+                   <div class="input-group input-group-ppi m-b-10 col-12">
+                        <div class="input-group-prepend input-group-ppi">
+                            @Html.LabelFor(m => m.reportData.DOB, new {@class = "control-label input-group-text"})
+                        </div>
+                        @Html.TextBoxFor( m => m.reportData.DOB, new {data_date_today_Highlight="1", data_provide = "datepicker", @class = "form-control mydatepicker", placeholder = "mm/dd/yyyy", @id = "caller_dob"})
+                    </div>
+
+                 @Html.
+                
+                    </p>
                 <p class="lead">
                     Enter your phone number
+                    <div class="input-group input-group-ppi m-b-10 col-12">
+                       @Html.TextBoxFor( m => m.reportData.Phone, new {@id = "phone"})
+                    </div>
                 </p>
                 <p class="lead">
                     If you have a email address please add it here.
                     It will only be used to contact you if needed and will not be shared with your incident report.
+                    <div class="input-group input-group-ppi m-b-10 col-12">
+                       @Html.TextBoxFor( m => m.reportData.Email, new {@id = "email"})
+                    </div>
                 </p>
                 <p>
                     YES - I do not want my information shared with this report.
                     NO - Please use my name if needed for my report.
+                    <div class="checkbox">
+                        <h5 class="mb-0">
+                            @Html.CheckBoxFor(m => m.reportData.AnonReq, new {data_lineitemid = 0, @class="lineCheckbox" })
+                            @*<label class="ppi-Collapse collapsed" style="min-width:95%" data-toggle="collapse" data-target="#collapse_@i" aria-expanded="false" aria-controls="collapse line @i">
+                                Line @i: @Model.LineItems[i].PartDescription
+                            </label>*@
+                        </h5>
+                    </div>
                 </p>
             </div>
         </div>

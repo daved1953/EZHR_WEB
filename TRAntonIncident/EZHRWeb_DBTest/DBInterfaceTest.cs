@@ -22,9 +22,9 @@ namespace EZHRWeb_DBTest
         
         //    Task<List<SampleCallFlowDto>> GetSampleCallFlow();
         [TestMethod]
-        public async Task GetSampleCallFlowTest()
+        public void GetSampleCallFlowTest()
         {
-            List<SampleCallFlowDto> result = await tdb.GetSampleCallFlow();
+            List<SampleCallFlowDto> result =  tdb.GetSampleCallFlow();
 
             Assert.IsTrue(result.Count > 0);
         }
@@ -32,36 +32,36 @@ namespace EZHRWeb_DBTest
 
         //    Task<List<DMakerDto>> SelectAllDMaker();
         [TestMethod]
-        public async Task SelectAllDMakerTest()
+        public void SelectAllDMakerTest()
         {
-            List<DMakerDto> result = await tdb.SelectAllDMaker();
+            List<DMakerDto> result =   tdb.SelectAllDMaker();
 
             Assert.IsTrue(result.Count > 0);
         }
 
         //    Task<List<QMasterDto>> GetQMaster();
         [TestMethod]
-        public async Task GetQMasterTest()
+        public void GetQMasterTest()
         {
-            List<QMasterDto> result = await tdb.GetQMaster();
+            List<QMasterDto> result =  tdb.GetQMaster();
 
             Assert.IsTrue(result.Count > 0);
         }
 
         //    Task<ReportDataDto> GetReportDataTemplate();
         [TestMethod]
-        public async Task GetREeportDAtaTEmplateTest()
+        public void GetREeportDAtaTEmplateTest()
         {
-            ReportDataDto result = await tdb.GetReportDataTemplate();
+            ReportDataDto result = tdb.GetReportDataTemplate();
 
             Assert.IsTrue(result != null);
         }
 
         //    Task<RespDataDto> GetRespDataTemplate();
         [TestMethod]
-        public async Task GetREspDataTEmplateTest()
+        public void GetREspDataTEmplateTest()
         {
-            RespDataDto result = await tdb.GetRespDataTemplate();
+            RespDataDto result = tdb.GetRespDataTemplate();
             Assert.IsTrue(result != null);
         }
 
