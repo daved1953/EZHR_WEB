@@ -18,7 +18,7 @@ namespace EZHRWeb_Business.Interface
             mapper = MapHelper.SetupMaps();
         }
 
-        public IncidentInput InitIncidentObj()
+        public async Task<IncidentInput> InitIncidentObj()
         {
 
          InitIncident dbobj = new InitIncident();
@@ -26,11 +26,11 @@ namespace EZHRWeb_Business.Interface
          IncidentInput _incident = new IncidentInput();
 
 
-            _incident.CallFlow = Mapper.Map<List<SampleCallFlowDto>,List<SampleCallFlow>>(dbobj.GetSampleCallFlow());
+            _incident.CallFlow = Mapper.Map<List<SampleCallFlowDto>,List<SampleCallFlow>>(await dbobj.GetSampleCallFlow());
 
-            _incident.dMaker = Mapper.Map<List<DMakerDto>, List<DMaker>>( dbobj.SelectAllDMaker());
+            _incident.dMaker = Mapper.Map<List<DMakerDto>, List<DMaker>>(await dbobj.SelectAllDMaker());
 
-            _incident.qMaster = Mapper.Map<List<QMasterDto>, List<QMaster>>( dbobj.GetQMaster());
+            _incident.qMaster = Mapper.Map<List<QMasterDto>, List<QMaster>>(await dbobj.GetQMaster());
 
             _incident.reportData = new ReportData();
 

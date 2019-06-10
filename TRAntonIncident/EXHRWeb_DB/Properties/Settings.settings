@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="SqlComm" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Data Source=dellt1500;Initial Catalog=CorpACCHL;Integrated Security=false;MultipleActiveResultSets=True;User ID=BEARS;Password=EZHR;</Value>
+      <Value Profile="(Default)">Server=tcp:tranton.database.windows.net,1433;Initial Catalog=CorpAccHL;Persist Security Info=False;User ID= "bears";Password="Incident2019@";MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;</Value>
     </Setting>
   </Settings>
 </SettingsFile>

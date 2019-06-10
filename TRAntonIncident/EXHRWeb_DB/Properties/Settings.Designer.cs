@@ -25,8 +25,9 @@ namespace EZHRWeb_DB.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=dellt1500;Initial Catalog=CorpACCHL;Integrated Security=false;Multipl" +
-            "eActiveResultSets=True;User ID=BEARS;Password=EZHR;")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Server=tcp:tranton.database.windows.net,1433;Initial Catalog=CorpAccHL;Persist Se" +
+            "curity Info=False;User ID= \"bears\";Password=\"Incident2019@\";MultipleActiveResult" +
+            "Sets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;")]
         public string SqlComm {
             get {
                 return ((string)(this["SqlComm"]));

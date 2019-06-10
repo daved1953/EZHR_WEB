@@ -21,7 +21,7 @@ namespace EZHRWeb_DB.DbInterface
         /// loads Dmake default values.
         /// </summary>
         /// <returns></returns>
-        public List<DMakerDto> SelectAllDMaker()
+        public async Task<List<DMakerDto>> SelectAllDMaker()
         {
             List<DMakerDto> requesteddata = new List<DMakerDto>();
             using (SqlConnection sqlconn = sqlConn)
@@ -31,7 +31,7 @@ namespace EZHRWeb_DB.DbInterface
                 sqlconn.Open();
                 cmd.CommandType = CommandType.StoredProcedure;
 
-                SqlDataReader reader = cmd.ExecuteReader();
+                SqlDataReader reader = await cmd.ExecuteReaderAsync();
 
                 while (reader.Read())
                 {
@@ -129,7 +129,7 @@ namespace EZHRWeb_DB.DbInterface
         /// Qmaster details
         /// </summary>
         /// <returns></returns>
-        public List<QMasterDto> GetQMaster()
+        public async Task<List<QMasterDto>> GetQMaster()
         {
             List<QMasterDto> qmasters = new List<QMasterDto>();
 
@@ -141,7 +141,7 @@ namespace EZHRWeb_DB.DbInterface
 
                 cmd.CommandType = CommandType.StoredProcedure;
 
-                SqlDataReader result = cmd.ExecuteReader();
+                SqlDataReader result = await cmd.ExecuteReaderAsync();
 
                 while (result.Read())
                 {
@@ -163,48 +163,57 @@ namespace EZHRWeb_DB.DbInterface
         /// SampleCallFLow items
         /// </summary>
         /// <returns></returns>
-        public List<SampleCallFlowDto> GetSampleCallFlow()
+        public async Task<List<SampleCallFlowDto>> GetSampleCallFlow()
         {
-            List<SampleCallFlowDto> returnresult = new List<SampleCallFlowDto>();
-            using (SqlConnection sqlconn = sqlConn)
+            try
             {
-                SqlCommand cmd = new SqlCommand("GetSampleCallFlow", sqlconn);
-
-                sqlconn.Open();
-
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                SqlDataReader result =  cmd.ExecuteReader();
-
-                while (result.Read())
+                List<SampleCallFlowDto> returnresult = new List<SampleCallFlowDto>();
+                using (SqlConnection sqlconn = sqlConn)
                 {
-                    SampleCallFlowDto vSampleCallFlow = new SampleCallFlowDto();
+                    SqlCommand cmd = new SqlCommand("GetSampleCallFlow", sqlconn);
 
-                    vSampleCallFlow.Action = result.GetInt32(result.GetOrdinal("Action"));
-                    vSampleCallFlow.ID = result.GetInt32(result.GetOrdinal("ID"));
-                    vSampleCallFlow.PrimarySection = result.GetInt32(result.GetOrdinal("PrimarySection"));
-                    vSampleCallFlow.Qid = result.GetString(result.GetOrdinal("QID"));
-                    vSampleCallFlow.QuestionType = result.GetString(result.GetOrdinal("QuestionType"));
-                    vSampleCallFlow.Section = result.GetInt32(result.GetOrdinal("Section"));
-                    vSampleCallFlow.SectionType = result.GetString(result.GetOrdinal("Sectiontype"));
-                    //vSampleCallFlow.SsmaTimeStamp = result.GetDateTime(result.GetOrdinal("SSMA_TimeStamp"));
-                    vSampleCallFlow.SubSection = result.GetInt32(result.GetOrdinal("SubSection"));
-                    vSampleCallFlow.Verbage = result.GetString(result.GetOrdinal("Verbage"));
+                    sqlconn.Open();
 
-                    returnresult.Add(vSampleCallFlow);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    SqlDataReader result = await cmd.ExecuteReaderAsync();
+
+                    while (result.Read())
+                    {
+                        SampleCallFlowDto vSampleCallFlow = new SampleCallFlowDto();
+
+                         vSampleCallFlow.ID = result.GetInt32(result.GetOrdinal("ID"));
+                        vSampleCallFlow.Action = result.GetInt32(result.GetOrdinal("Action"));
+                       vSampleCallFlow.PrimarySection = result.GetInt32(result.GetOrdinal("PrimarySection"));
+                        vSampleCallFlow.Qid = result.GetString(result.GetOrdinal("QID"));
+                        vSampleCallFlow.QuestionType = result.GetString(result.GetOrdinal("QuestionType"));
+                        vSampleCallFlow.Section = result.GetInt32(result.GetOrdinal("Section"));
+                        vSampleCallFlow.SectionType = result.GetString(result.GetOrdinal("Sectiontype"));
+                        //vSampleCallFlow.SsmaTimeStamp = result.GetDateTime(result.GetOrdinal("SSMA_TimeStamp"));
+                        vSampleCallFlow.SubSection = result.GetInt32(result.GetOrdinal("SubSection"));
+                        vSampleCallFlow.Verbage = result.GetString(result.GetOrdinal("Verbage"));
+
+                        returnresult.Add(vSampleCallFlow);
+                    }
+
+                    sqlconn.Close();
                 }
-                sqlconn.Close();
+
+
+                return returnresult;
             }
 
-           
-            return returnresult;
+            catch (Exception ex)
+            {
+                throw new Exception( "Getting call stream",ex.InnerException);
+            }
         }
 
         /// <summary>
         /// ReportData Template
         /// </summary>
         /// <returns></returns>
-        public ReportDataDto GetReportDataTemplate()
+        public async Task<ReportDataDto> GetReportDataTemplate()
         {
             ReportDataDto newReportData = new ReportDataDto();
 
@@ -216,7 +225,7 @@ namespace EZHRWeb_DB.DbInterface
 
                 cmd.CommandType = CommandType.StoredProcedure;
 
-                SqlDataReader result =  cmd.ExecuteReader();
+                SqlDataReader result =  await cmd.ExecuteReaderAsync();
 
                 while (result.Read())
                 {
@@ -251,7 +260,7 @@ namespace EZHRWeb_DB.DbInterface
         /// GetResponseDataTemplate 
         /// </summary>
         /// <returns></returns>
-        public RespDataDto GetRespDataTemplate()
+        public async Task<RespDataDto> GetRespDataTemplate()
         {
             RespDataDto newRespData = new RespDataDto();
 
@@ -262,7 +271,7 @@ namespace EZHRWeb_DB.DbInterface
 
                 cmd.CommandType = CommandType.StoredProcedure;
 
-                SqlDataReader result = cmd.ExecuteReader();
+                SqlDataReader result = await cmd.ExecuteReaderAsync();
 
                 while (result.Read())
                 {

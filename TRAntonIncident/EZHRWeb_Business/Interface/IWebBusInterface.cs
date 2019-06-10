@@ -7,9 +7,9 @@ using EZHRWeb_Business.Models;
 
 namespace EZHRWeb_Business.Interface
 {
-   public  interface IWebBusInterface
+   public interface IWebBusInterface
     {
-        IncidentInput InitIncidentObj();
+       Task<IncidentInput> InitIncidentObj();
         
     }
 }
