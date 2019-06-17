@@ -12,7 +12,7 @@ namespace EZHRWeb_DB.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.9.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.1.0.0")]
     public sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -25,9 +25,9 @@ namespace EZHRWeb_DB.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Server=tcp:tranton.database.windows.net,1433;Initial Catalog=CorpAccHL;Persist Se" +
-            "curity Info=False;User ID= \"bears\";Password=\"Incident2019@\";MultipleActiveResult" +
-            "Sets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Server=tcp:tranton.database.windows.net,1433;Initial Catalog=CorpAccHLWeb;Persist" +
+            " Security Info=False;User ID= \"bears\";Password=\"Incident2019@\";MultipleActiveRes" +
+            "ultSets=False;Encrypt=FAlse;TrustServerCertificate=False;Connection Timeout=30;")]
         public string SqlComm {
             get {
                 return ((string)(this["SqlComm"]));

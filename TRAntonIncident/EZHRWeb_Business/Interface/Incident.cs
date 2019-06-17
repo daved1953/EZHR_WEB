@@ -4,41 +4,71 @@ using AutoMapper;
 using EZHRWeb_Business.Helpers;
 using EZHRWeb_Business.Models;
 using EZHRWeb_DB.Models;
-using EZHRWeb_DB.DbInterface ; 
+using EZHRWeb_DB.DbInterface;
 
 
-namespace EZHRWeb_Business.Interface 
+namespace EZHRWeb_Business.Interface
 {
-    public class Incident : IWebBusInterface
+    public class IncidentBus : IWebBusInterface
     {
-        private IMapper mapper;
+        public IWebDbInterface oWebDb = new IncidentDb();
 
-        public Incident()
+        public IMapper mapper;
+
+        public IncidentBus()
         {
             mapper = MapHelper.SetupMaps();
+
         }
+
 
         public async Task<IncidentInput> InitIncidentObj()
         {
 
-         InitIncident dbobj = new InitIncident();
+            mapper = MapHelper.SetupMaps();
 
-         IncidentInput _incident = new IncidentInput();
+            IncidentInput _incident = new IncidentInput();
 
 
-            _incident.CallFlow = Mapper.Map<List<SampleCallFlowDto>,List<SampleCallFlow>>(await dbobj.GetSampleCallFlow());
+            _incident.CallFlow = mapper.Map<List<SampleCallFlowDto>, List<SampleCallFlow>>(await oWebDb.GetSampleCallFlow());
 
-            _incident.dMaker = Mapper.Map<List<DMakerDto>, List<DMaker>>(await dbobj.SelectAllDMaker());
+            _incident.dMaker = mapper.Map<List<DMakerDto>, List<DMaker>>(await oWebDb.SelectAllDMaker());
 
-            _incident.qMaster = Mapper.Map<List<QMasterDto>, List<QMaster>>(await dbobj.GetQMaster());
+            _incident.qMaster = mapper.Map<List<QMasterDto>, List<QMaster>>(await oWebDb.GetQMaster());
 
             _incident.reportData = new ReportData();
 
             _incident.responses.Add(new RespData());
-           
+
             return _incident;
 
         }
+
+
+        /// <summary>
+        /// GetWebPhrase
+        /// </summary>
+        /// <param name="vSection"></param>
+        /// <returns></returns>
+        public async Task<List<WebPhrase>> GetWebPhrase(int vSection)
+        {
+            mapper = MapHelper.SetupMaps();
+            List<WebPhrase> owebphrase = new List<WebPhrase>();
+
+            var webphrase = await oWebDb.GetWebPhraseBySection(vSection);
+
+            foreach (WebPhraseDto webph in webphrase)
+            {
+                var twebphrase = mapper.Map<WebPhraseDto, WebPhrase>(webph);
+
+                owebphrase.Add(twebphrase);
+            }
+
+            return owebphrase;
+        }
+
+
+
 
 
         //public async Task<IncidentInput> SaveReportData(IncidentInput request)

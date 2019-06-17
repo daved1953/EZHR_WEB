@@ -1,49 +1,73 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model EZHR_Web.Models.WebPhrasesV
+
+@{
+    ViewBag.Title = "Index";
 }
 
 <script>
-    function ClickButton1() {
-        $.ajax({
-            type: "POST",
-            url: '@Url.Action("StartIncident", "Incident")',
-            async: true,
-            success: function (msg) {
-                ServiceSucceeded(msg);
-            },
-            error: function () {
-                return "error";
-            }
-        });
-    }
-</script>
+        function ClickButton1() {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("StartIncident", "Incident")',
+                async: true,
+                success: function (msg) {
+                    ServiceSucceeded(msg);
+                },
+                error: function () {
+                    return "error";
+                }
+            });
+        }
+    </script>
 
 <div class="ta-back ta-border ">
-<div class="panel">
-    <p class="lead">
-        EZHR Incident reporting will allow you to provide information concerning information about incidents in the work place.
-        At the end of the incident report you may provide a statement concerning specifics about the incident if you care to.
-        This data will only be used in th research of the incident.
-    </p>
-      <p class="lead">
-        We request certain information to help investigate this incident, but you can also indicate on the next screen
-        if you care to remain anonymous in reporting this incident.
-    </p>
-    <p>
-        <input id="Button1" type="button" value="Start an Incident report" onclick="ClickButton1()">
-      
-    </p>
-</div>
+    <div class="panel">
+
+        @foreach (var webphrase in Model.WebPhrase)
+        {
+            if (webphrase.subsection <= 20)
+            {
+                <p class="lead">
+                    @Html.DisplayFor(model => webphrase.englishtext)
+
+                    @*EZHR Incident reporting will allow you to provide information concerning information about incidents in the work place.
+                        At the end of the incident report you may provide a statement concerning specifics about the incident if you care to.
+                        This data will only be used in the research of the incident.*@
+                </p>
+            }
+            if (webphrase.subsection >= 50 && webphrase.subsection <= 79)
+            {
+                <h2> Video Training </h2>
+                <p>
+                    @Html.DisplayFor(model => webphrase.englishtext)
+                </p>
+
+            }
+
+            if (webphrase.subsection >= 50 && webphrase.subsection <= 79)
+            {
+                <h2> Do you need immediate help? </h2>
+                <p class="lead">
+                    <h6> @Html.DisplayFor(model => webphrase.englishtext)
+                </p>
+
+            }
+            if (webphrase.subsection >= 80)
+            {
+                <div class="row">
+                    <div class="col-md-4">
+                        <p class="lead">
+                            @Html.DisplayFor(model => webphrase.englishtext, new { @class = "control" })
+                        </p>
+                    </div>
+
+                </div>
+
+            }
+        }
+        <p>
+            <h2><input id="Button1" type="button" value="Start an Incident report" onclick="ClickButton1()"></h2>
+</p>
+    </div>
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2> Video Training </h2> 
-       <p> EZHR provides a video training site that can provide you more information to help you understand
-            your rights as a employee of your company. To access that site press on the EZHR Video Training link above.
-        </p>   
-        <p> If you feel that you require immediate assistance, call our offices using the Contact button above. 
-        </p>
-    </div>
-    
-</div>

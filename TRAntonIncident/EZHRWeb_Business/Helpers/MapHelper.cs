@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using EZHRWeb_Business.Models;
 using EZHRWeb_DB.Models;
+
+
 namespace EZHRWeb_Business.Helpers
 {
     public class MapHelper
@@ -22,6 +24,11 @@ namespace EZHRWeb_Business.Helpers
 
                 cfg.CreateMap<ReportDataDto, ReportData>();
                 cfg.CreateMap<ReportData, ReportDataDto>();
+
+                cfg.CreateMap<WebPhraseDto, WebPhrase>();
+                cfg.CreateMap<WebPhrase, WebPhraseDto>();
+
+
             });
 
             return new Mapper(config);

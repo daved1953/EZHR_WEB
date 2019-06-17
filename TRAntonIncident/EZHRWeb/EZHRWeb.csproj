@@ -131,6 +131,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\WebPhrasesV.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -255,9 +256,7 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -279,10 +278,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EXHRWeb_DB\EZHRWeb_DB.csproj">
-      <Project>{746dd592-204e-449e-9934-7ab37a64a3bf}</Project>
-      <Name>EZHRWeb_DB</Name>
-    </ProjectReference>
     <ProjectReference Include="..\EZHRWeb_Business\EZHRWeb_Business.csproj">
       <Project>{c45e67ae-0459-4980-8cfb-9da40921b9af}</Project>
       <Name>EZHRWeb_Business</Name>
