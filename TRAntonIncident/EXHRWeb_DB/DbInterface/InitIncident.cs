@@ -4,14 +4,13 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
+using AutoMapper; 
 
 
 namespace EZHRWeb_DB.DbInterface
 {
-    public partial class IncidentDb : BaseDb
+    public partial class IncidentDb : IWebDbInterface
     {
-       
-
 
         //public InitIncident()
         //{
@@ -19,19 +18,34 @@ namespace EZHRWeb_DB.DbInterface
         //}
 
         /// <summary>
-        /// loads Dmake default values.
+        /// loads Dmake default values.  based on requystQid.
+        /// 
         /// </summary>
+        /// <param name="requestQid"></param>
         /// <returns></returns>
-        public async Task<List<DMakerDto>> SelectAllDMaker()
+        public async Task<List<DMakerDto>> SelectAllDMaker(string requestQid)
         {
             List<DMakerDto> requesteddata = new List<DMakerDto>();
             using (SqlConnection sqlconn = new SqlConnection(SqlConn))
             {
-                SqlCommand cmd = new SqlCommand("GetDMaker", sqlconn);
-
-                sqlconn.Open();
+                SqlCommand cmd; 
+                if (requestQid != string.Empty)
+                {
+                  cmd = new SqlCommand("GetDMaker", sqlconn);
+                }
+                else
+                {
+                  cmd = new SqlCommand("GetDMakerByQID", sqlconn);
+                  cmd.Parameters.AddWithValue("@QID",requestQid);
+               
+                }
                 
+                sqlconn.Open();
+               
+                    
+
                 cmd.CommandType = CommandType.StoredProcedure;
+                
 
                 SqlDataReader reader = await cmd.ExecuteReaderAsync();
 

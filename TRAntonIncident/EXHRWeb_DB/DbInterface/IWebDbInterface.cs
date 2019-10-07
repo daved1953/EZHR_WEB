@@ -8,7 +8,7 @@ namespace EZHRWeb_DB.DbInterface
     {
         #region "InitIncident"
         Task<List<SampleCallFlowDto>> GetSampleCallFlow();
-        Task<List<DMakerDto>> SelectAllDMaker();
+        Task<List<DMakerDto>> SelectAllDMaker(string requestQID);
         Task<List<QMasterDto>> GetQMaster();
         Task<ReportDataDto> GetReportDataTemplate();
         Task<RespDataDto> GetRespDataTemplate();
@@ -18,6 +18,12 @@ namespace EZHRWeb_DB.DbInterface
         #region "Web Phrase" 
         Task<List<WebPhraseDto>> GetWebPhraseBySection(int vSection);
         Task<List<WebPhraseDto>> GetWebPhrase(int vSection);
+
+        #endregion
+
+        #region " SaveIncident"
+        Task<bool> SaveReportData(ReportDataDto request);
+        Task<bool> SaveQuestionAnswer(List<RespDataDto> requests, string qidsave);
 
         #endregion
     }

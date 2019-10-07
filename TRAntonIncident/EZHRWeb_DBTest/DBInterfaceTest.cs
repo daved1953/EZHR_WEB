@@ -34,7 +34,7 @@ namespace EZHRWeb_DBTest
         [TestMethod]
         public async Task  SelectAllDMakerTest()
         {
-            List<DMakerDto> result = await  tdb.SelectAllDMaker();
+            List<DMakerDto> result = await  tdb.SelectAllDMaker("5003");
 
             Assert.IsTrue(result.Count > 0);
         }

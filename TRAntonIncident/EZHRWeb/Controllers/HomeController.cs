@@ -16,10 +16,14 @@ namespace EZHR_Web.Controllers
     {
         private IWebBusInterface oIncident  ;
 
+        public HomeController()
+        {
+            oIncident = new IncidentBus();
+        }
 
         public async Task<ActionResult> Index()
         {
-            oIncident = new IncidentBus();
+           // oIncident = new IncidentBus();
            List<WebPhrase>  webPhrases = await oIncident.GetWebPhrase(100);
 
            WebPhrasesV webphrase = new WebPhrasesV();
@@ -28,27 +32,41 @@ namespace EZHR_Web.Controllers
            {
                webphrase.WebPhrase.Add(owp);
            }
-
-
             return View("Index", webphrase);
         }
-
-
 
         public async Task<ActionResult> About()
         {
 
-            oIncident = new IncidentBus();
+          //  oIncident = new IncidentBus();
             var WebPhrases = await oIncident.GetWebPhrase(200);
 
-            return View("About", WebPhrases);
+            WebPhrasesV oWwebPhrasesV = new WebPhrasesV();
+
+           foreach (WebPhrase tphrase in WebPhrases)
+           {
+               oWwebPhrasesV.WebPhrase.Add(tphrase);
+           }
+
+           return View("About", oWwebPhrasesV);
         }
 
-        public ActionResult Contact()
+        public async Task<ActionResult> Contact()
         {
             ViewBag.Message = "Your contact page.";
 
-            return View();
+            //  oIncident = new IncidentBus();
+            var WebPhrases = await oIncident.GetWebPhrase(300);
+
+            WebPhrasesV oWwebPhrasesV = new WebPhrasesV();
+
+            foreach (WebPhrase tphrase in WebPhrases)
+            {
+                oWwebPhrasesV.WebPhrase.Add(tphrase);
+            }
+
+            return View("Contact", oWwebPhrasesV);
         }
+
     }
 }

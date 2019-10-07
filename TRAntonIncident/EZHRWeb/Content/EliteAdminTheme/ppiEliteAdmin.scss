@@ -1,0 +1,51 @@
+﻿/*
+Template Name: Admin Template
+Author: Niravjoshi / Wrappixel
+File: scss
+*/
+
+//PPI overrides
+@import 'ppi_variable.scss';
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+//Colors
+@import 'horizontal-nav-fullwidth/dist/scss/colors/default';
+@import 'horizontal-nav-fullwidth/dist/scss/colors/green';
+@import 'horizontal-nav-fullwidth/dist/scss/colors/megna';
+@import 'horizontal-nav-fullwidth/dist/scss/colors/purple';
+@import 'horizontal-nav-fullwidth/dist/scss/colors/red';
+@import 'horizontal-nav-fullwidth/dist/scss/colors/blue';
+@import 'horizontal-nav-fullwidth/dist/scss/colors/blue-dark';
+@import 'horizontal-nav-fullwidth/dist/scss/colors/default-dark';
+@import 'horizontal-nav-fullwidth/dist/scss/colors/green-dark';
+@import 'horizontal-nav-fullwidth/dist/scss/colors/red-dark';
+@import 'horizontal-nav-fullwidth/dist/scss/colors/megna-dark';
+@import 'horizontal-nav-fullwidth/dist/scss/colors/purple-dark';
+
+
+// Import Bootstrap source files
+@import "assets/node_modules/bootstrap/scss/bootstrap.scss";
+
+//This is for the icons
+@import 'assets/icons/font-awesome/css/font-awesome.min.css';//'../font-awesome.min.css';
+@import 'assets/icons/simple-line-icons/css/simple-line-icons.css';
+@import 'assets/icons/weather-icons/css/weather-icons.min.css';
+@import 'assets/icons/themify-icons/themify-icons.css';
+@import 'assets/icons/flag-icon-css/flag-icon.min.css';
+@import "assets/icons/material-design-iconic-font/css/materialdesignicons.min.css";
+
+
+//This is the core files
+
+@import 'horizontal-nav-fullwidth/dist/scss/core/core';
+@import 'horizontal-nav-fullwidth/dist/scss/widgets/widgets';
+@import 'horizontal-nav-fullwidth/dist/scss/responsive';
+
+//these are for bootstrap date/time pickers
+@import 'assets/node_modules/bootstrap-datepicker/bootstrap-datepicker.min.css';
+
+@import 'horizontal-nav-fullwidth/dist/css/style.min.css';
+
+//In This scss you can write your scss
+@import 'ppi_custom.scss';

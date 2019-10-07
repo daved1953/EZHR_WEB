@@ -1,13 +1,35 @@
-﻿@model EZHRWeb_Business.Models.IncidentInput
+﻿@model EZHR_Web.Models.ReportDataV
 
-
+@{
+    ViewBag.Title = "EZHR Incident SignIn";
+}
+<script
+    src="https://code.jquery.com/jquery-2.2.4.min.js"
+    integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+    crossorigin="anonymous"></script>
+<script
+    src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"
+    integrity="sha256-xNjb53/rY+WmG+4L6tTl9m6PpqknWZvRt0rO1SRnJzw="
+    crossorigin="anonymous"></script>
 <script type="text/javascript">
 
-    function PPI_LookupDetailOnBegin(xhr) {
+    function EZHR_LookupDetailOnBegin(xhr) {
         //$('#LoadCompanyDetailAndItems').attr('disabled', true);
         BeginAjaxClient(xhr);
         return true;
     };
+
+
+    function FormLoadSuccess(xhr) {
+
+    };
+
+    $(document).ready(function () {
+        $(function () {
+            //var j = $.noConflict(true);
+            $("#fromdate,#todate").datepicker();
+        });
+    });
 
     $(function () {
 
@@ -42,63 +64,73 @@
 
         //    if ($(this).valid()) {
         //        $("#coc_submit_indicator").modal('show');
-        //        $('#printcoc').prop('disabled',true);    
+        //        $('#printcoc').prop('disabled',true);
         //    }
     });
 
-        PPI_ReapplyValidation();
-    });
-    </script>
-<div class="ta-back ta-border ">
-    <div class="panel">
-        <div class="row">
-            <div class="col-md-10">
-                <p>
-                    The information we collect from this page iswill be used to only contact you unless you decide to not remain Anoyoumous.
-                    certain types of reports require releasing your name if provided, but you will be consulted before this happens.
-                </p>
-                <p>
-                    Enter your name
-                    @Html.TextBoxFor(m => m.reportData.Fname);  @Html.TextBoxFor(m => m.reportData.Lname);
-                </p>
-                <p>
-                   <div class="input-group input-group-ppi m-b-10 col-12">
-                        <div class="input-group-prepend input-group-ppi">
-                            @Html.LabelFor(m => m.reportData.DOB, new {@class = "control-label input-group-text"})
-                        </div>
-                        @Html.TextBoxFor( m => m.reportData.DOB, new {data_date_today_Highlight="1", data_provide = "datepicker", @class = "form-control mydatepicker", placeholder = "mm/dd/yyyy", @id = "caller_dob"})
-                    </div>
+</script>
+<div class="ezhr-panel-heading-primary bg-info">
+    <div class="panel-body bg-info">
+        @using (Ajax.BeginForm("ProcessSignIn", "Incident", null, new AjaxOptions()
+        {
+            LoadingElementId = "",
+            HttpMethod = FormMethod.Post.ToString(),
+            OnBegin = "EZHR_LookupDetailOnBegin()",
+            UpdateTargetId = "",
+            OnFailure = "handleError",
+            OnSuccess = "FormLoadSuccess(xhr)",
+            InsertionMode = InsertionMode.Replace
+        }, new { @class = "form-horizontal" }))
+        {
+        <div class="panel-body">
 
-                 @Html.
-                
-                    </p>
+            <p class="lead">
+                <h2 class="col-md-6 text-center"> LOGIN PAGE </h2>
+
+                The information we collect from this page will be used to only contact you unless you decide to not remain Anoyoumous.
+                certain types of reports require releasing your name if provided, but you will be contacted before this happens.
+            </p>
+
+            <div>
                 <p class="lead">
-                    Enter your phone number
-                    <div class="input-group input-group-ppi m-b-10 col-12">
-                       @Html.TextBoxFor( m => m.reportData.Phone, new {@id = "phone"})
-                    </div>
+                    @Html.LabelFor(m => m.Fname, new { @class = "control" }) @Html.TextBoxFor(m => m.Fname, new { @class = "control" })
+                    @Html.LabelFor(m => m.Lname, new { @class = "control" }) @Html.TextBoxFor(m => m.Lname, new { @class = "control" })
+                    
+                    @Html.LabelFor(m => m.DOB, new { })@Html.TextBoxFor(m => m.DOB, new { @width = "50 px", @data_date_today_Highlight = "1", @data_provide = "datepicker", @class = "form-control datepicker", @placeholder = "mm/dd/yyyy", @id = "caller_dob" })
+                </p>
+            </div>
+            <div>
+                <p class="lead">
+                    @Html.LabelFor(m => m.Phone, new { @class = "control" }) @Html.TextBoxFor(m => m.Phone, new { @id = "phone" })
                 </p>
                 <p class="lead">
-                    If you have a email address please add it here.
-                    It will only be used to contact you if needed and will not be shared with your incident report.
-                    <div class="input-group input-group-ppi m-b-10 col-12">
-                       @Html.TextBoxFor( m => m.reportData.Email, new {@id = "email"})
-                    </div>
+                    @Html.LabelFor(m => m.Subscriber,new { @class = "control"}) @Html.TextBoxFor(m => m.Subscriber, new { @claqss = "control"}) 
                 </p>
-                <p>
-                    YES - I do not want my information shared with this report.
-                    NO - Please use my name if needed for my report.
-                    <div class="checkbox">
-                        <h5 class="mb-0">
-                            @Html.CheckBoxFor(m => m.reportData.AnonReq, new {data_lineitemid = 0, @class="lineCheckbox" })
-                            @*<label class="ppi-Collapse collapsed" style="min-width:95%" data-toggle="collapse" data-target="#collapse_@i" aria-expanded="false" aria-controls="collapse line @i">
-                                Line @i: @Model.LineItems[i].PartDescription
-                            </label>*@
-                        </h5>
-                    </div>
+            </div>
+            <div>
+                <p class="lead">
+                    Enter email address so we can contact you.
+                    @Html.TextBoxFor(m => m.Email, new { @class = "control" })
+                    Your Email Address will not be shared with your incident report.
+                </p>
+            </div>
+
+            <div class="checkbox_scale2">
+                <p class="lead">
+                    @Html.CheckBoxFor(m => m.AnonReq, new {@checked = "checked" })   @Html.LabelFor(m => m.AnonReq, new { @class = "Control" })
                 </p>
             </div>
         </div>
+                <div class="col-md-2">
+                    <p class="lead">
+                        <input class="text-center" style="width: 120ex; border-color: goldenrod" id="Button1" type="submit" value="Start Report" onclick="ClickButton1">
+                    </p>
+
+              
+            </div>
+        }
     </div>
 </div>
+@* </div>
+    </div>*@
 

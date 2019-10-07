@@ -1,0 +1,139 @@
+﻿@model WebUI.ViewModels.OrderSearchVm
+
+@{
+    ViewBag.Title = "Certificate Of Compliance";
+}
+
+
+<div id="COCOrderLookup" class="">
+    <div class="col-12">
+        <div class="row">
+            @*this is the search box*@
+            <div class="col-lg-2 col-md-3">
+                <div class="card border-info rounded">
+                    <div class="card-header card-headertext bg-info">
+                        <h4 class="m-b-0">Search Here</h4>
+                    </div>
+                    <div class="card-body p-b-0">
+                        <div class="card-text">
+                            @using (Ajax.BeginForm("LoadOrderDetails", "CertOfCompliance", new AjaxOptions()
+                            {
+                                LoadingElementId = "create_OrderLookup_LoadingDiv",
+                                HttpMethod = FormMethod.Post.ToString(),
+                                OnBegin = "return PPI_OrderLookupOnBegin(xhr)",
+                                UpdateTargetId = "create_OrderLookup_results",
+                                OnFailure = "handleError",
+                                OnSuccess = "PPI_OrderLookupOnSuccess(xhr)",
+                                InsertionMode = InsertionMode.Replace
+                            }, new {@class = "form-horizontal"}))
+                            {
+                                @Html.AntiForgeryToken()
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.StoreId, new {@class = "control-label"})
+                                    <div class="">
+                                        @Html.TextBoxFor(m => m.StoreId, new {@class = "form-control text-uppercase", id = "StoreId", maxlength = "2",})
+                                        @Html.ValidationMessageFor(m => m.StoreId, "", new {@class = "text-validation"})
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Ord, new {@class = "control-label"})
+                                    <div class="">
+                                        @Html.TextBoxFor(m => m.Ord, "", new {@class = "form-control text-uppercase", id = "OrderId", Value = "",})
+                                        @Html.ValidationMessageFor(m => m.Ord, "", new {@class = "text-validation"})
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="">
+                                        <button id="searchSubmitButton" style="margin-top: 12px; margin-bottom: 12px; width: 100%;" type="submit" class="btn btn-primary btn-group-lg">Search</button>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*These are the instructions*@
+            <div class="col-lg-6 col-md-9">
+                <div class="card rounded border-info m-b-0">
+                    <div class="card-header card-headertext bg-info">
+                        <h4 class="m-b-0">Certificate of Compliance Generation</h4>
+                    </div>
+                    <div class="card-body m-b-0">
+                        <div class="card-text" id="UserInfo">
+                            <ul>
+                                <li>
+                                    Enter the <i>Store</i>, <i>Order#</i> and click <i>Search</i> to pull up the order
+                                </li>
+                                <li>
+                                    Check each item you need to certify and fill in the appropriate details
+                                </li>
+                                <li>
+                                    When finished, press the <i>Save and View PDF</i> to generate a PDF to be printed and signed by the branch manager.
+                                </li>
+                            </ul>
+                            
+                            Only orders in "Back Order" or "Work Order" status will allow Certificates Of Compliance to be generated.
+                            
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @*This is the existing Certificate of Compliance block*@
+            <div class="col-lg-4 col-md-12">
+                <div id="existingCoCs"></div>
+            </div>
+        </div>
+    </div>
+
+    @*the search spinner and the results*@
+    
+    <div class="row">
+        <div class="col-12">
+            <div class="" id="create_OrderLookup_LoadingDiv" style="display: none;">
+                <div class="text-center">
+                    <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+                    <h4 id="modalMessage">Searching...</h4>
+                </div>
+            </div>
+            <div id="create_OrderLookup_results"></div>
+        </div>
+    </div>
+    
+</div>
+
+<script type="text/javascript">
+
+    function PPI_OrderLookupOnBegin(xhr) {
+        $('#LoadOrderDetails').attr('disabled', true);
+        $('#existingCoCs').hide();
+        $('#create_OrderLookup_results').hide();
+        BeginAjaxClient(xhr);
+
+        $.ajax({
+            type: "GET",
+            async: true,
+            url: '/CertOfCompliance/GetExistingCofCs?ord=' + $('#OrderId').val() + '&store=' + $('#StoreId').val(),
+            success: function (data) {
+                $('#existingCoCs').html(data);
+                $('#existingCoCs').show();
+            },//end success
+            error: function (data) {
+                $("#existingCoCs").html(data.responseText);
+            }//end success
+        }); //end ajax
+
+        return true;
+    };
+
+    function PPI_OrderLookupOnSuccess(data) {
+        $('#create_OrderLookup_results').show();
+
+    };
+
+    function validateStoreId() {
+        $("StoreId").replace(/\W/g, '');
+    };
+
+</script>

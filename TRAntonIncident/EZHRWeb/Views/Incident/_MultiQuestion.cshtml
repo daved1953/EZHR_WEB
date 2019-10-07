@@ -1,0 +1,118 @@
+﻿@model EZHRWeb_Business.Models.IncidentInput
+
+<script>
+    function FormLoadSuccess(xhr) {
+        //$('#LoadOrderDetails').attr('disabled', true);
+        //$('#existingCoCs').hide();
+        //$('#create_OrderLookup_results').hide();
+        BeginAjaxClient(xhr);
+
+        function ClickButton1() {
+            $.ajax({
+                type: "POST",
+                url: '/Incident/QuestionAnswered',
+                async: true,
+                success: function (msg) {
+                    ServiceSucceeded(msg);
+                },
+                error: function () {
+                    return "error";
+                }
+            });
+        };
+
+        $(function () {
+
+            //on change of a checkbox, fix coloring
+            //$('input:checkbox[id^="i_Selected"]').change(function () {
+            $('input:checkbox.lineCheckbox').change(function () {
+
+                //$("input:checkbox[id='i_Selected']:checked").each(function () {
+                $('input:checkbox.lineCheckbox:checked').each(function () {
+                    var lineId = $(this).data('lineitemid');
+                    $('#heading_' + lineId).removeClass('bg-light');
+                    $('#heading_' + lineId).addClass('bg-success');
+                    $('#collapse_' + $(this).data('lineitemid')).collapse('show');
+
+
+                });
+
+                //$("input:checkbox[id='i_Selected']:not(:checked)").each(function () {
+                $("input:checkbox.lineCheckbox:not(:checked)").each(function () {
+                    var lineId = $(this).data('lineitemid');
+                    $('#heading_' + lineId).addClass('bg-light');
+                    $('#heading_' + lineId).removeClass('bg-success');
+                    $('#collapse_' + lineId).collapse('hide');
+                });
+
+            });
+
+</script>
+
+<div class="ezhr-panel-heading-primary bg-info">
+    <div class="panel-body">
+        <h2 class="col-md-6 text-center"> What is the reason for this report ? </h2>
+    </div>
+
+    @using (Ajax.BeginForm("QuestionAnswered", "Incident", null, new AjaxOptions()
+    {
+        LoadingElementId = "",
+        HttpMethod = FormMethod.Post.ToString(),
+        OnBegin = "EZHR_LookupDetailOnBegin()",
+        UpdateTargetId = "",
+        OnFailure = "handleError",
+        OnSuccess = "FormLoadSuccess(xhr)",
+        InsertionMode = InsertionMode.Replace
+    }, new { @class = "form-horizontal" }))
+    {
+        <div class="panel-body col-4 text-active">
+
+            <div class="fa-vcard ">
+
+                @foreach (var qline in Model.CallFlow)
+                {
+
+                    @*   multiple selection answer *@
+                 
+                        if (qline.SubSection != 0)
+                        {
+                            <div class="col-4 text-active">
+                                <p>
+                                    @Html.DisplayTextFor(m => qline.SubSection) - @Html.DisplayTextFor(questionline => qline.Verbage)
+                                </p>
+                            </div>
+                        }
+                    }
+                }
+
+                @if (Model.qMaster[0].QType == "MD")
+                {
+                    <div>
+                        @Html.LabelFor(m => m.Answer)
+                        @Html.TextBoxFor(m => m.Answer)
+                    </div>
+                }
+
+
+
+                <div>
+                    <input class="text-center" style="width: 50ex; border-color: goldenrod" id="Button1" type="submit" value="Start Incident Report" onclick="ClickButton1">
+                </div>
+
+                @Html.HiddenFor(m => m.CallId)
+                @Html.HiddenFor(m => m.CallFlow)
+                @Html.HiddenFor(m => m.QID)
+                @Html.HiddenFor(m => m.dMaker)
+                @Html.HiddenFor(m => m.qMaster)
+
+            </div>
+
+
+        </div>
+    }
+</div>
+
+
+
+
+

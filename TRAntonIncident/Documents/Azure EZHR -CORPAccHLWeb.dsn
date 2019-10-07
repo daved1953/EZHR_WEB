@@ -1,0 +1,8 @@
+[ODBC]
+DRIVER=SQL Server Native Client 11.0
+UID=d_larkin
+DATABASE=CorpAccHLWeb
+WSID=DELLT1500
+APP=Microsoft Office
+SERVER=tranton.database.windows.net
+Description=EZHR CorpAccHLWeb

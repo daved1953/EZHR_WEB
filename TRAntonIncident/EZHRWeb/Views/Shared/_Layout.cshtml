@@ -10,24 +10,29 @@
 </head>
 <body>
     <div class="navbar navbar-fixed-top" style="background-color: lightsteelblue ">
-        <div class="container">             <a align="left" href="https://www.ezhrvt.com/"><img style="height:50px;" src="~/Content/images/ezhrlogovt.gif" alt="EZHR Video Training" /> </a>
-
-            <!-- <div class="navbar-header text-info">-->
-            <ul class="nav navbar-nav" style="font-size: 25px; backcolor:white; ">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    span class="icon-bar"></span>
+        <div class="container">
+            <nav class="sidebar-nav navbar navbar-expand-md p-0">
+                <div class="navbar-header">
+                <a align="left" href="https://www.ezhrvt.com/">
+                    <img style="height: 50px;" src="~/Content/images/ezhrlogovt.gif" alt="EZHR Video Training"/>
+                </a>
+                </div>
+                <!-- <div class="navbar-header text-info">-->
+                <ul class="nav navbar-nav" style="font-size: 25px; background-color: lightsteelblue;">
+                    @*<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    @*<span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <li>  @Html.ActionLink("EZHR_Incident Reporting", "Index", "Home")</li>
-                <li>@Html.ActionLink("About", "About", "Home")</li>
-                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                <li>
+                </button>*@
 
-                </li>
-
-            </ul>
+                    <li>@Html.ActionLink("EZHR_Incident Reporting  ", "Index",new { area = "" }, new { @class = "" } )</li>
+                    
+                    <li>@Html.ActionLink("    About     ", "About", "Home", new { area = "" }, new { @class = "" })</li>
+                    
+                    <li>@Html.ActionLink("    Contact    ", "Contact", "Home", new { area = "" }, new { @class = "" })</li>
+                </ul>
+            </nav>
         </div>
             <div class="navbar-collapse collapse">
                
