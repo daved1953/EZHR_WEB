@@ -69,35 +69,54 @@
 
             <div class="fa-vcard ">
 
-                @foreach (var qline in Model.CallFlow)
+                @foreach (var callrow in Model.CallFlow)
                 {
+                    var qline = callrow;
 
-                    @*   multiple selection answer *@
-                 
-                        if (qline.SubSection != 0)
+
+                    foreach (var dline in Model.dMaker)
+                    {
+                        if (dline.QID == qline.PrimarySection.ToString())
                         {
-                            <div class="col-4 text-active">
-                                <p>
-                                    @Html.DisplayTextFor(m => qline.SubSection) - @Html.DisplayTextFor(questionline => qline.Verbage)
-                                </p>
+                            <div class="card-deck">
+                                <div class="card border-secondary">
+                                    <div class="card-body">
+
+                                        @*if (Model.qMaster[0].QType == "MD")
+                                            {
+
+                                                @Html.LabelFor(m => m.Answer)
+                                                @Html.TextBoxFor(m => m.Answer)
+
+                                            }*@
+                                        @*   multiple selection answer *@
+
+                                       @if (qline.SectionType == "sh")
+                                        {
+                                        <h4>
+                                            @Html.DisplayTextFor(questionline => qline.Verbage)
+                                        </h4>
+                                        }
+                                        else
+                                        {
+                                        <div class="col-6 text-active">
+                                            <p>
+                                                @Html.CheckBoxFor(m => m.bAnswer, new { @id = qline.Section }) @Html.DisplayTextFor(questionline => qline.Verbage)
+                                            </p>
+                                        </div>
+                                        }
+                                    </div>
+                                </div>
                             </div>
                         }
+
                     }
                 }
-
-                @if (Model.qMaster[0].QType == "MD")
-                {
-                    <div>
-                        @Html.LabelFor(m => m.Answer)
-                        @Html.TextBoxFor(m => m.Answer)
-                    </div>
-                }
-
-
-
                 <div>
                     <input class="text-center" style="width: 50ex; border-color: goldenrod" id="Button1" type="submit" value="Start Incident Report" onclick="ClickButton1">
                 </div>
+
+
 
                 @Html.HiddenFor(m => m.CallId)
                 @Html.HiddenFor(m => m.CallFlow)
@@ -111,8 +130,3 @@
         </div>
     }
 </div>
-
-
-
-
-

@@ -29,7 +29,7 @@ namespace EZHRWeb_DB.DbInterface
             using (SqlConnection sqlconn = new SqlConnection(SqlConn))
             {
                 SqlCommand cmd; 
-                if (requestQid != string.Empty)
+                if (requestQid == string.Empty)
                 {
                   cmd = new SqlCommand("GetDMaker", sqlconn);
                 }

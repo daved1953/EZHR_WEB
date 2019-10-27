@@ -47,9 +47,9 @@ namespace EZHR_Web.Controllers
 
             oIncident = await BI.SaveAndCreateIncident(oIncident);
 
-            oIncident.QID = "5003";
+           // oIncident.QID = "5003";
 
-            oIncident.CallFlow = oIncident.CallFlow.FindAll(m => m.PrimarySection == 5003).ToList();
+           // oIncident.CallFlow = oIncident.CallFlow.FindAll(m => m.PrimarySection == 5003).ToList();
 
 
             oIncident.QType =  oIncident.qMaster[0].QType;
