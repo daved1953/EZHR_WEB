@@ -5,69 +5,80 @@
 }
 
 <script>
+    function FormLoadSuccess(xhr) {
+        //$('#LoadOrderDetails').attr('disabled', true);
+        //$('#existingCoCs').hide();
+        //$('#create_OrderLookup_results').hide();
+        BeginAjaxClient(xhr);
+
         function ClickButton1() {
             $.ajax({
                 type: "POST",
-                url: '@Url.Action("StartIncident", "Incident")',
+                url: '../Incident/StartIncident',
                 async: true,
-                success: function (msg) {
+                success: function(msg) {
                     ServiceSucceeded(msg);
                 },
-                error: function () {
+                error: function() {
                     return "error";
                 }
             });
         }
-    </script>
+    };
+    
 
-<div class="ta-back ta-border ">
-    <div class="panel">
-
-        @foreach (var webphrase in Model.WebPhrase)
+</script>
+<div class="ezhr-panel-heading-primary bg-info">
+    <div class="panel-body bg-info ">
+        @using (Ajax.BeginForm("StartIncident", "Incident", null, new AjaxOptions()
         {
-            if (webphrase.subsection <= 20)
+            LoadingElementId = "",
+            HttpMethod = FormMethod.Post.ToString(),
+            OnBegin = "",
+            UpdateTargetId = "",
+            OnFailure = "handleError",
+            OnSuccess = "FormLoadSuccess(xhr)",
+            InsertionMode = InsertionMode.Replace
+        }, new { @class = "form-horizontal" }))
+        {
+            <h2 class="text-center"> EZHR Incident Reporting </h2>
+
+            foreach (var webphrase in Model.WebPhrase)
             {
+                if (webphrase.subsection <= 20)
+                {
+                    <p class="lead">
+                        @Html.DisplayFor(model => webphrase.englishtext)
+                    </p>
+                }
+                if (webphrase.subsection >= 21 && webphrase.subsection <= 40)
+                { <h2>
+                      
+                      Virtual Training
+                    </h2>
+                    <p class="lead">
+
+                        @Html.DisplayFor(model => webphrase.englishtext)
+                    </p>
+
+                }
+
+                if (webphrase.subsection >= 41 && webphrase.subsection <= 60)
+                {
+                    <h2> Do you need immediate help? </h2>
+                    <p class="lead">
+                        @Html.DisplayFor(model => webphrase.englishtext)
+                    </p>
+
+                }
+            }
+
+            <div class="col-md-4">
                 <p class="lead">
-                    @Html.DisplayFor(model => webphrase.englishtext)
-
-                    @*EZHR Incident reporting will allow you to provide information concerning information about incidents in the work place.
-                        At the end of the incident report you may provide a statement concerning specifics about the incident if you care to.
-                        This data will only be used in the research of the incident.*@
-                </p>
-            }
-            if (webphrase.subsection >= 50 && webphrase.subsection <= 79)
-            {
-                <h2> Video Training </h2>
-                <p>
-                    @Html.DisplayFor(model => webphrase.englishtext)
+                    <input class="text-center" style="width: 120ex;border-color:goldenrod" id="Button1" type="submit" value="Start Incident Report" onclick="ClickButton1()">
                 </p>
 
-            }
-
-            if (webphrase.subsection >= 50 && webphrase.subsection <= 79)
-            {
-                <h2> Do you need immediate help? </h2>
-                <p class="lead">
-                    <h6> @Html.DisplayFor(model => webphrase.englishtext)
-                </p>
-
-            }
-            if (webphrase.subsection >= 80)
-            {
-                <div class="row">
-                    <div class="col-md-4">
-                        <p class="lead">
-                            @Html.DisplayFor(model => webphrase.englishtext, new { @class = "control" })
-                        </p>
-                    </div>
-
-                </div>
-
-            }
+            </div>
         }
-        <p>
-            <h2><input id="Button1" type="button" value="Start an Incident report" onclick="ClickButton1()"></h2>
-</p>
     </div>
 </div>
-

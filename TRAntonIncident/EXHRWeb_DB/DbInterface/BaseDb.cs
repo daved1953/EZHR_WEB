@@ -8,15 +8,13 @@ using EZHRWeb_DB.DbInterface;
 
 namespace EZHRWeb_DB.DbInterface
 {
-    public class BaseDb
+    public partial class IncidentDb : IWebDbInterface
     {
         public string SqlConn;
        
-        public BaseDb()
+        public IncidentDb()
         {
            SqlConn = Properties.Settings.Default.SqlComm;
-
-
         }
 
     }

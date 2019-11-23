@@ -1,0 +1,88 @@
+
+
+//theme default variables
+@import 'horizontal-nav-fullwidth/dist/scss/variable.scss';
+
+/*PPI Color Palette*/
+
+$ppiblack: black !default;
+$ppiblack-1: #263238 !default;
+$ppiblack-2: #4e5b61 !default;
+$ppiblack-3: #859094 !default;
+$ppiblack-4: #f7f9fa !default;
+
+$ppideepblue: #004263 !default;
+$ppideepblue-1: #325263 !default;
+$ppideepblue-2: #6d8999 !default;
+$ppideepblue-3: #dae2e6 !default;
+$ppideepblue-4: #f5f8fa !default;
+
+$ppiblue: #1ca9e1 !default;
+$ppiblue-1: #5ebce0 !default;
+$ppiblue-2: #8bc8e0 !default;
+$ppiblue-3: #cdedfa !default;
+$ppiblue-4: #fafeff !default;
+
+$ppigreen: #2d9646;
+$ppigreen-1: #60a563;
+$ppigreen-2: #87b684;
+$ppigreen-3: #adcba8;
+$ppigreen-4: #d4e3d0;
+
+$ppired: #a12b22;
+$ppired-1: #ae513c;
+$ppired-2: #bf745f;
+$ppired-3: #d29b88;
+$ppired-4: #e7c9bc;
+
+//custom variables and overrides
+/*Theme Colors*/
+$themecolor: $ppideepblue;
+$themecolor-alt: $ppideepblue-2;
+$themeLinkColor: #1686b3;//$ppiblue;//#ffffff;
+$themeNavLinkColor:$ppiblue-3;
+
+$body-bg: $ppideepblue-4;
+$colors: ( 
+    blue: $blue,
+    indigo: $indigo,
+    purple: $purple,
+    pink: $pink,
+    red: $red, 
+    orange: $orange,
+    yellow: $yellow,
+    green: $green,
+    teal: $teal,
+    cyan: $cyan,
+    white: $white,
+    gray: $gray-600,
+    gray-dark: $gray-800
+);
+
+$theme-colors: ( 
+    primary: $ppideepblue,//$ppiblue,//$ppiblue-3,//
+    secondary: $ppideepblue-3,//$gray-100,
+    success: $ppigreen-2,//$ppigreen,
+    info: $ppiblue-2,//$ppideepblue-2,//$ppiblack-1,//$blue, 
+    warning: $yellow,
+    danger: $ppired-4,
+    light: $ppiblack-4,//$gray-100,
+    cyan: $cyan,
+    dark: $gray-800,
+    purple: $purple,
+    validation: $red
+);
+
+.btn-default {
+    background-color: $ppiblue-2;
+}
+
+
+//$font-family-sans-serif: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+//$headings-font-family:   'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+//$font-family-sans-serif: museo-sans-condensed, sans-serif;
+//$headings-font-family: museo-sans-condensed, sans-serif;
+
+$font-family-sans-serif: 'Open Sans', sans-serif;
+$headings-font-family: 'Open Sans', sans-serif;

@@ -24,6 +24,7 @@ namespace EZHRWeb_DB.Models
         public bool verified { get; set; }
         public string Verifiedby { get; set; }
         public DateTime VerifiedDate { get; set; }
+        public string Email { get; set; }
 
         public ReportDataDto()
         {

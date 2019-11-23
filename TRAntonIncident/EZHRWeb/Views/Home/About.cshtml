@@ -1,33 +1,36 @@
-﻿@{
+﻿@model EZHR_Web.Models.WebPhrasesV
+
+@{
     ViewBag.Title = "About";
 }
-<div class="ta-back ta-border ">
-    <div class="panel">
-        <div class="row">
-            <div class="col-md-10">
-                <p class="lead">
-                    @foreach (var webphrase in Model)
-                    {
-                        if (webphrase.subsection < 20)
-                        {
-                            <p class="lead">
-                                <h6> webphrase.englishtext </h6>
-                                @*EZHR Incident reporting will allow you to provide information concerning information about incidents in the work place.
-                                At the end of the incident report you may provide a statement concerning specifics about the incident if you care to.
-                                This data will only be used in the research of the incident.*@
-                            </p>
-                        }
-                        if (webphrase.subsection > 50 && webphrase.subsection < 79)
-                        {
-                            <p>
-                                <h6> webphrase.englishtext </h6>
-                            </p>
 
-                        }
-                    }
-                  </p>
-                </div>
-            </div>
-        </div>
+
+<div class="ezhr-panel-heading-primary bg-info">
+    <div class="panel-body bg-info ">
+    
+       <h2 class="text-center"> About Page </h2>
+
+       @foreach (var webphrase in Model.WebPhrase)
+       {
+           if (webphrase.subsection > 50)
+           {
+               <p class="lead">
+                   @Html.DisplayFor(model => webphrase.englishtext)
+               </p>
+           }
+           if (webphrase.subsection < 50)
+           {
+               <p class="lead">
+                   @Html.DisplayFor(model => webphrase.englishtext)
+               </p>
+           }
+           if (webphrase.subsection >= 50 && webphrase.subsection < 79)
+           {
+               <p class="lead">
+                   @Html.DisplayFor(model => webphrase.englishtext)
+               </p>
+
+           }
+       }
     </div>
-
+</div>

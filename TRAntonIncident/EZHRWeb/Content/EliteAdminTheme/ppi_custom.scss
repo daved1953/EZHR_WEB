@@ -1,0 +1,399 @@
+﻿// In this scss you can overwrite all our scss, we suggested you to add your scss into this, so whenever the update comes it will not affect your code.
+
+@import 'ppi_variable.scss';
+
+// PPI Theme
+.skin-ppi {
+
+   
+    .navbar-header {
+        width: auto;
+        padding:5px;
+    }
+    /*Theme Colors*/
+    // Topbar
+    .topbar {
+        background: $themecolor;
+
+        .top-navbar .navbar-header .navbar-brand .dark-logo {
+            display: none;
+        }
+
+        .top-navbar .navbar-header .navbar-brand .light-logo {
+            display: inline-block;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        color: $themeNavLinkColor;
+    }
+    //Sidebar
+    .sidebar-nav {
+
+        ul li a {
+            color: $themeNavLinkColor;
+
+            &.hover {
+                //background-color: black;
+            }
+        }
+
+        > div > ul > li {
+            a:hover {
+                color: black;
+                background-color: white;
+            }
+
+            a:focus {
+                color: black;
+                background-color: white;
+            }
+
+            &.active > a {
+                color: white;
+                border-color: $ppiblue !important;
+                border-bottom-width: 1px;
+                font-weight: bolder;
+                font-size: larger;
+
+
+
+                &:hover {
+                    color: black;
+                }
+
+                i {
+                    color: $themeNavLinkColor;
+                }
+            }
+
+            a.dropdown-item-ppi {
+                color: black;
+            }
+        }
+    }
+    //Bread-crumb
+    .page-titles .breadcrumb .breadcrumb-item.active {
+        color: $themeLinkColor;
+    }
+}
+
+.skin-ppi.modal-open {
+    padding-right: 0px !important;
+}
+
+.shortTable {
+    th {
+        padding: 5px;
+    }
+
+    td,
+    tr,
+    table,
+    thead,
+    tbody,
+    tfoot {
+        padding: 4px !important;
+    }
+}
+
+.header-link{
+    color:$ppideepblue;
+    &:hover
+        {
+        color:$ppideepblue-2;
+    }
+}
+
+a{
+    color:$themeLinkColor;
+}
+
+.horizontal-nav .navbar-header
+{
+    padding-left:0px;
+}
+
+.horizontal-nav .sidebar-nav #sidebarnav > li > a {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.form-group {
+    margin-bottom:10px;
+}
+
+.card-body{
+    padding:10px;
+}
+
+.thinBorder
+{
+    border-width:thin;
+}
+
+.footer-ppi {
+    //position: absolute;
+    background-color: $ppideepblue-4;
+    color: black;
+}
+
+.card-headertext {
+    color: black;//$ppiblue-4;
+    letter-spacing: .05em;
+    @extend .rounded-top;
+}
+
+.btn {
+    letter-spacing: .05em;
+    //font-weight:bold;
+}
+
+.btn-formcontrol
+{
+    height:38px;
+}
+
+.card-headertextdark {
+    color: $ppiblack;
+    letter-spacing: .05em;
+    @extend .rounded-top;
+}
+
+
+.fullHeight {
+    min-height: 100%;
+    height: 100%;
+}
+
+
+.ppi-Collapse:after {
+    font-family: 'FontAwesome';
+    content: "\f106";
+    float: right;
+}
+
+.ppi-Collapse.collapsed:after {
+    /* symbol for "collapsed" panels */
+    content: "\f107";
+}
+
+td.details-control {
+    cursor: pointer;
+}
+
+td.details-control:after {
+    font-family: 'FontAwesome';
+    content: "\f107";
+    font-size: large;
+    line-height:1;
+}
+
+tr.shown td.details-control:after {
+    content: "\f106";
+}
+
+tr.parentRow {
+    border-style: solid !important;
+    border-bottom: none !important;
+    border-width: 2px !important;
+    @extend .border-info;
+}
+
+tr.childRow {
+    border-style: solid !important;
+    border-top: none !important;
+    border-width: 2px !important;
+    @extend .border-info;
+}
+
+.nestedUl {
+    span {
+        display: inline-block;
+    }
+}
+
+.noStrips-white
+{
+    background-color:white !important;
+}
+
+.initial-bold,
+label.initial-bold,
+span.initial-bold {
+    
+    font-weight: bold;
+    
+}
+
+
+
+.navbar-ppi-test {
+    background-color: #00900C;
+    color: white;
+}
+
+.navbar-ppi-localhost {
+    background-color: sandybrown;
+    color: white;
+}
+
+.navbar-ppi-test-in-prod {
+    background-color: #ff6600;
+    color: white;
+}
+
+
+.dropdown-menu-ppi {
+    background-color: $ppideepblue-3; //$ppiblack-4; //$themecolor;
+
+   li > a.dropdown-item,
+    > a.dropdown-item
+        {
+        padding-top:3px;
+        padding-bottom: 3px;
+    }
+}
+
+.dropdown-menu-ppi-header {
+    background-color: $ppiblue-3; //$ppiblack-4; //$themecolor;
+    border-color: $ppiblue-3; //$ppiblack-4; //$themecolor;
+    @extend .dropdown-menu-ppi;
+    
+}
+
+.bs-deselect-all
+{
+    border-left-color:black;
+}
+
+.noRightRadius
+{
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
+.noLefttRadius {
+    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
+}
+
+.input-group-ppi {
+    color: $ppiblack;
+}
+
+.input-group-text-header {
+    @extend .input-group-text;
+    background-color: $ppiblack-2;
+    color: black;
+}
+
+.input-group-header-value {
+    background-color: $ppiblue-4;
+    color: black;
+}
+
+.input-group-text {
+    background-color: $ppiblue-4;
+    color: black;
+}
+
+.basicTd .basicPre {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+    /*font-family:Arial;*/
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    white-space: pre-wrap;
+}
+
+
+@media (min-width: 768px) {
+    .modal-xl {
+        width: 90%;
+        max-width: 1200px;
+    }
+}
+
+
+
+.fullWidthIframe > iframe {
+    width: 100%;
+    height: 100%;
+}
+
+.fullWidthIframe {
+    width: 100%;
+    height: 100%;
+}
+
+.ppi-green {
+    color: $ppigreen;
+}
+
+.btn-header {
+
+    @extend .btn;
+    background-color: $ppideepblue-1; //$ppiblack-4; //$ppiblue-2; //$ppideepblue-3;
+    border-color: $ppideepblue-1; //$ppiblue-2; //$ppideepblue-3;
+    color: white;
+
+    &.hover,
+    &:hover {
+        color: white;
+        background-color: $ppideepblue; //        $ppiblack-3; //$ppiblue-2;
+        border-color: $ppideepblue; //$ppiblack-3;
+    }
+
+    &.focus,
+    &:focus {
+        //box-shadow: 0 0 0 0.2rem white;
+        background-color: $ppideepblue; //$ppiblack-3;
+        border-color: $ppideepblue; //        $ppiblack-3; //$ppideepblue-3;
+    }
+
+    &.disabled,
+    &:disabled {
+        color: #fff;
+        background-color: $ppiblack-3; //#1ca9e1;
+        border-color: $ppiblack-3;
+    }
+}
+
+.smallNav{
+    padding:5px;
+}
+
+.prewrap{
+    white-space:pre-wrap;
+}
+
+.btn:disabled{
+    cursor: not-allowed;
+}
+
+
+
+.navbar-ppi {
+    background-color: #004062;
+    color: white;
+}
+
+
+.map_nav_svg {
+    height: 36px;
+    width: 20px;
+    position: absolute;
+    padding-top: 3px;
+}
+
+.svg_label {
+    padding-left: 16px;
+}
+
+.svg_span {
+    /*display: block;*/
+    float: left;
+    margin-right: 2px;
+}

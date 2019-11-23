@@ -1,0 +1,402 @@
+﻿@*@using Piedmont_Interface.Models
+@using WebGrease.Extensions*@
+@model WebUI.ViewModels.CertofComplianceVm
+
+@{
+    ViewBag.Title = "OrderLookupDetailCOC";
+}
+
+<script type="text/javascript">
+
+    function PPI_LookupDetailOnBegin(xhr) {
+        //$('#LoadCompanyDetailAndItems').attr('disabled', true);
+       BeginAjaxClient(xhr);
+        return true;
+    };
+
+    $(function () {
+
+        //on change of a checkbox, fix coloring
+        //$('input:checkbox[id^="i_Selected"]').change(function () {
+        $('input:checkbox.lineCheckbox').change(function () {
+
+            //$("input:checkbox[id='i_Selected']:checked").each(function () {
+            $('input:checkbox.lineCheckbox:checked').each(function () {
+                var lineId = $(this).data('lineitemid');
+                $('#heading_' + lineId).removeClass('bg-light');
+                $('#heading_' + lineId).addClass('bg-success');
+                $('#collapse_' + $(this).data('lineitemid')).collapse('show');
+
+
+            });
+
+            //$("input:checkbox[id='i_Selected']:not(:checked)").each(function () {
+            $("input:checkbox.lineCheckbox:not(:checked)").each(function () {
+                var lineId = $(this).data('lineitemid');
+                $('#heading_' + lineId).addClass('bg-light');
+                $('#heading_' + lineId).removeClass('bg-success');
+                $('#collapse_' + lineId).collapse('hide');
+            });
+
+        });
+
+        $.fn.datepicker.defaults.autoclose = true;
+        $.fn.datepicker.defaults.format = 'mm/dd/yyyy';
+
+        $('#CofCCreate').submit(function () {
+
+            if ($(this).valid()) {
+                $("#coc_submit_indicator").modal('show');
+                $('#printcoc').prop('disabled',true);    
+            }
+
+            
+        });
+
+        PPI_ReapplyValidation();
+
+    });
+
+   
+
+</script>
+
+
+<!-- sample modal content -->
+<div class="modal fade" id="coc_submit_indicator" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="Processing Certificate Of Compliance" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            @*<div class="modal-header">
+        <h4 class="modal-title" id="myLargeModalLabel">Large modal</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    </div>*@
+            <div class="modal-body text-center" id="modal-window_body">
+                <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+                <h4 id="modal-window-label">Preparing Document...</h4>
+            </div>
+            @*<div class="modal-footer">
+                <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+            </div>*@
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<div class="" id="OrderLookUpDetailCOC">
+    
+    
+<div class="card rounded bg-info m-b-0">
+    <div class="card-header card-headertext bg-info">
+        <h4 class="">Order @Html.DisplayFor(m => m.Customer.Ord) Release @Html.DisplayFor(m => m.Customer.Release) is in @Html.DisplayFor(m => m.Customer.Status) status</h4>
+    </div>
+    <div class="card body m-b-0">
+        
+        
+        <div class="card-deck">
+            <div class="card border-secondary">
+                <div class="card-body">
+                    <h5 class="card-title">Shipping Info</h5>
+                    <p class="card-text">
+                        @Html.DisplayFor(m => m.Customer.ShipName, new { @class = "control" })
+                        <br/>
+                        @Html.DisplayFor(m => m.Customer.ShipAddr, new { @class = "control" })
+                        @if (string.IsNullOrWhiteSpace(Model.Customer.ShipAddr2))
+                        {
+                            <br />
+                            @Html.DisplayFor(m => m.Customer.ShipAddr2, new { @class = "control" })
+                        }
+                        
+                        @Html.DisplayFor(m => m.Customer.ShipCity), @Html.DisplayFor(m => m.Customer.ShipState)@Html.DisplayFor(m => m.Customer.ShipZip)
+                        
+                    </p>
+                </div>
+                @*<div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>*@
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">WO / PO</h5>
+                    <p class="card-text">
+                        
+                        <div class="row">
+                            <div class="col-sm-6">
+                                @Html.DisplayNameFor(modelItem => Model.Customer.CustPo):
+                            </div>
+                            <div class="col-sm-6">
+                                @Html.DisplayFor(m => m.Customer.CustPo, new {@class = "control"})
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                @Html.DisplayNameFor(modelItem => Model.Customer.FullOrder):
+                            </div>
+                            <div class="col-sm-6">
+                                @Html.DisplayFor(m => m.Customer.FullOrder, new {@class = "control"})
+                            </div>
+                        </div>
+                    </p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Special Instructions</h5>
+                    <p class="card-text">
+                        @if (!String.IsNullOrEmpty(Model.Customer.SpecInst1))
+                        {
+                            @Html.DisplayTextFor(m => m.Customer.SpecInst1)
+                        }
+                        @if (!String.IsNullOrEmpty(Model.Customer.SpecInst2))
+                        {
+                            <br />
+                            @Html.DisplayTextFor(m => m.Customer.SpecInst2)
+                        }
+                        @if (!String.IsNullOrEmpty(Model.Customer.SpecInst3))
+                        {
+                            <br />
+                            @Html.DisplayTextFor(m => m.Customer.SpecInst3)
+                        }                        
+
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+
+    </div>
+</div>
+
+<br />
+   
+    
+    @if (String.IsNullOrWhiteSpace(Model.Customer.CustomerName))
+    {
+        <div class="col-sm-12 text-center" id="display_noavailable_order">
+            <h2>
+                <br />
+                Order may not be in proper status to allow for a new COC to be generated. Check Order Status.
+                <br />
+                If this situation continues contact your branch manager.
+            </h2>
+        </div>
+    }
+    else
+    {
+
+        <div class="card rounded border-info m-b-0">
+            <div class="card-header card-headertext bg-info">
+                <h4 class="m-b-0">Which lines need a Certificate Of Compliance?</h4>
+            </div>
+            <div class="card-body m-b-0">
+                
+
+                @using (@Html.BeginForm("CreatePrint", "CertOfCompliance", FormMethod.Post, new {@id = "CofCCreate", @class= "form-horizontal" }))
+                {
+
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(modelitem => Model.Search.OrderNumber)
+                    @Html.HiddenFor(modelitem => Model.Search.OrderReleaseNumber)
+                    @Html.HiddenFor(modelitem => Model.Search.StoreId)
+                    @Html.HiddenFor(modelitem => Model.Customer.CustomerId)
+                    @Html.HiddenFor(modelitem => Model.Customer.Store)
+                    @Html.HiddenFor(modelitem => Model.Customer.Ord)
+                    @Html.HiddenFor(modelitem => Model.Customer.Release)
+
+                    <div class="card-text" id="UserInfo">
+                        <div class="input-group input-group-ppi m-b-10 col-12">
+                            <div class="input-group-prepend input-group-ppi">
+                                @Html.LabelFor(m => m.Customer.DateShip, new {@class = "control-label input-group-text"})
+                            </div>
+                            @Html.TextBoxFor(m => m.Customer.DateShip, new {data_date_today_Highlight="1", data_provide = "datepicker", @class = "form-control mydatepicker", placeholder = "mm/dd/yyyy", @id = "cust_dateship"})
+                        </div>
+
+                        <div class="col-12">
+                        @Html.ValidationMessageFor(m => m.Customer.DateShip, "", new { @class = "form-control-feedback text-validation" })
+                        </div>
+                        @*new line item selector*@
+                        <div class="row">
+
+                            @for (int i =0; i < Model.LineItems.Count; i++)
+                            {
+                                <div class="col-md-12">
+                                    <div class="card rounded border-info thinBorder">
+                                        <div class="card-header card-headertextdark bg-light" id="heading_@i">
+                                            <div class="checkbox">
+                                                <h5 class="mb-0">
+                                                    @Html.CheckBoxFor(m => m.LineItems[i].Selected, new {data_lineitemid = i, @class="lineCheckbox" })
+                                                    <label class="ppi-Collapse collapsed" style="min-width:95%" data-toggle="collapse" data-target="#collapse_@i" aria-expanded="false" aria-controls="collapse line @i">
+                                                        Line @i: @Model.LineItems[i].PartDescription
+                                                    </label>
+                                                </h5>
+                                            </div>
+                                        </div>
+
+                                        <div id="collapse_@i" class="collapse" aria-labelledby="heading_@i">
+                                            <div class="card-body">
+                                                @Html.HiddenFor(m=> Model.LineItems[i].Partnumber)
+                                                @Html.HiddenFor(m=> Model.LineItems[i].PartDescription)
+                                                @Html.HiddenFor(m=> Model.LineItems[i].Seq)
+                                                @Html.HiddenFor(m=> Model.LineItems[i].LineItemId)
+                                                @Html.HiddenFor(modelitem => Model.LineItems[i].DimA)
+                                                @Html.HiddenFor(modelitem => Model.LineItems[i].DimB)
+                                                @Html.HiddenFor(modelitem => Model.LineItems[i].TypeCode)
+                                                <div class="row">
+                                                    <div class="col-sm-4 col-md-3">
+                                                        <div class="form-group row">
+                                                                @Html.LabelFor(m => Model.LineItems[i].BatchLot, new {@class = "control-label col-sm-4 col-form-label" })
+                                                            <div class="col-sm-8">
+                                                                @Html.TextBoxFor(m => Model.LineItems[i].BatchLot, new {@class = "form-control"})
+                                                                @Html.ValidationMessageFor(m => Model.LineItems[i].BatchLot, "", new {@class = "text-validation"})
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="col-sm-4 col-md-3">
+                                                        <div class="form-group row">
+                                                                @Html.LabelFor(m => Model.LineItems[i].DateofManufacture, new {@class = "control-label col-sm-4 col-form-label" })
+                                                            <div class="col-sm-8">
+                                                                @Html.TextBoxFor(m => Model.LineItems[i].DateofManufacture, new {data_date_today_Highlight = "1", data_provide = "datepicker", placeholder = "mm/dd/yyyy", @class = "form-control mydatepicker"})
+                                                                @Html.ValidationMessageFor(m => Model.LineItems[i].DateofManufacture, "", new {@class = "text-validation"})
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="col-sm-4 col-md-3">
+                                                        <div class="form-group row">
+                                                            
+                                                                @Html.LabelFor(m => Model.LineItems[i].ExpirationDate, new {@class = "control-label col-sm-4 col-form-label" })
+                                                            
+                                                            <div class="col-sm-8">
+                                                                @Html.TextBoxFor(m => Model.LineItems[i].ExpirationDate, new {data_date_today_Highlight = "1", data_provide = "datepicker", placeholder = "mm/dd/yyyy", @class = "form-control mydatepicker"})
+                                                                @Html.ValidationMessageFor(m => Model.LineItems[i].ExpirationDate, "", new {@class = "text-validation"})
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="col-sm-4 col-md-3">
+                                                        <div class="form-group row">
+                                                            
+                                                                @Html.LabelFor(m => Model.LineItems[i].ShelfLife, new {@class = "control-label col-sm-4 col-form-label" })
+                                                            
+                                                            <div class="col-sm-8">
+                                                                @Html.TextBoxFor(m => Model.LineItems[i].ShelfLife, new {@class = "form-control"})
+                                                                @Html.ValidationMessageFor(m => Model.LineItems[i].ShelfLife, "", new {@class = "text-validation"})
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    
+                                                    <div class="col-sm-4 col-md-3">
+                                                        <div class="form-group row">
+                                                            
+                                                            @Html.LabelFor(m => Model.LineItems[i].Specifications, new {@class = "control-label col-sm-4 col-form-label" })
+                                                            
+                                                            <div class="col-sm-8">
+                                                                @Html.TextBoxFor(m => Model.LineItems[i].Specifications, new {@class = "form-control"})
+                                                                @Html.ValidationMessageFor(m => Model.LineItems[i].Specifications, "", new {@class = "text-validation"})
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="col-sm-4 col-md-3">
+                                                        <div class="form-group row">
+                                                            
+                                                            @Html.LabelFor(m => Model.LineItems[i].NationalStandards, new {@class = "control-label col-sm-4 col-form-label" })
+                                                            
+                                                            <div class="col-sm-8">
+                                                                @Html.TextBoxFor(m => Model.LineItems[i].NationalStandards, new {@class = "form-control"})
+                                                                @Html.ValidationMessageFor(m => Model.LineItems[i].NationalStandards, "", new {@class = "text-validation"})
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    
+                                                    <div class="col-sm-4 col-md-3">
+                                                        <div class="form-group row">
+                                                            
+                                                                @Html.LabelFor(m => Model.LineItems[i].FederalSpec, new {@class = "control-label col-sm-4 col-form-label" })
+                                                            
+                                                            <div class="col-sm-8">
+                                                                @Html.TextBoxFor(m => Model.LineItems[i].FederalSpec, new {@class = "form-control"})
+                                                                @Html.ValidationMessageFor(m => Model.LineItems[i].FederalSpec, "", new {@class = "text-validation"})
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="col-sm-4 col-md-3">
+                                                        <div class="form-group row">
+                                                            
+                                                            @Html.LabelFor(m => Model.LineItems[i].MilSpec, new {@class = "control-label col-sm-4 col-form-label" })
+                                                            
+                                                            <div class="col-sm-8">
+                                                                @Html.TextBoxFor(m => Model.LineItems[i].MilSpec, new {@class = "form-control"})
+                                                                @Html.ValidationMessageFor(m => Model.LineItems[i].MilSpec, "", new {@class = "text-validation"})
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-sm-4 col-md-3">
+                                                        <div class="form-group row">
+
+                                                            @Html.LabelFor(m => Model.LineItems[i].QuantityShipped, new { @class = "control-label col-sm-4 col-form-label" })
+
+                                                            <div class="col-sm-8">
+                                                                @Html.TextBoxFor(m => Model.LineItems[i].QuantityShipped, new { @class = "form-control" })
+                                                                @Html.ValidationMessageFor(m => Model.LineItems[i].QuantityShipped, "", new { @class = "text-validation" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6 col-md-6">
+                                                        <div class="form-group row">
+                                                            @Html.LabelFor(m => Model.LineItems[i].OtherInfo, new {@class = "control-label col-sm-2 col-form-label"})
+                                                            <div class="col-sm-10">
+                                                                @Html.EditorFor(m => Model.LineItems[i].OtherInfo, new {htmlAttributes = new {@class = "form-control"}})
+                                                                @Html.ValidationMessageFor(m => Model.LineItems[i].OtherInfo, "", new {@class = "text-validation"})
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2 col-md-3">
+                                                        <a href="#" class="btn btn-primary float-right"  id="donebtn_@i" data-LineItemId="@i" data-toggle="collapse" data-target="#collapse_@i" aria-expanded="true" aria-controls="collapseOne">
+                                                            Done
+                                                        </a>
+                                                    </div>
+                                                </div>
+
+                                                
+                                            </div>@*end card body*@
+
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12  text-center">
+
+                            <input class="btn btn-primary btn-group-lg fa-align-center" id="printcoc" type="submit" value="Save and View PDF" style="width: 25% " />
+                            <p> </p>
+
+                        </div>
+                    </div>
+                }
+
+            </div> @*end card-body*@
+        </div>
+
+
+       
+        <br />
+
+       
+
+      
+
+    }@*end else*@
+</div>

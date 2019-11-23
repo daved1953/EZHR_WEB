@@ -1,41 +1,41 @@
-﻿@model EZHRWeb_Business.Models.WebPhrase
+﻿@model EZHR_Web.Models.WebPhrasesV
 @{
     ViewBag.Title = "Contact";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
-<div class="ta-back ta-border ">
-    <div class="panel">
-        <p class="lead">
-            foreach ( int rid = 0 ; rid < model.Id ; rid++)
+
+<div class="ezhr-panel-heading-primary bg-info">
+    <div class="panel-body bg-info ">
+        <h2 class="text-center">
+            Contact us
+        </h2>
+        @foreach (var webphrase in Model.WebPhrase)
+        {
+            if (webphrase.subsection <= 20)
             {
-            @if (Model.subsection == rid)
-            {
-                @Html.DisplayTextFor(m => m.englishtext)
+                <p class="lead">
+                    @Html.DisplayTextFor(m => webphrase.englishtext)
+                </p>
             }
-            @if (Model.subsection == rid)
+            if (webphrase.subsection == 30)
             {
-                <address>
-                    @Html.DisplayTextFor(m => m.englishtext)
-                    <br />
-                    @if (Model.subsection == rid)
-                    {
-                        @Html.DisplayTextFor(m => m.englishtext)
-                        </br>
-                    }
-                    @if (Model.subsection == rid)
-                    {
-                        <abbr title="Phone">P:</abbr>
-                        @Html.DisplayTextFor(m => m.englishtext)
-                        </
-                        address >
-                    }
-                    <address>
-                        <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-                        <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-                    </address>*@
-                    }
-                    }
-            </p>
-        </div>
+                <p class="lead">
+                    @Html.DisplayTextFor(m => webphrase.englishtext)
+                </p>
+            }
+
+            if (webphrase.subsection == 50)
+            {
+                <p class="lead">
+                    @Html.DisplayTextFor(m => webphrase.englishtext)
+                </p>
+            }
+            <p class="lead">
+               @if (webphrase.subsection >= 70)
+                {
+                  @Html.DisplayTextFor(m => webphrase.englishtext)
+                }
+              </p>
+        }
+
     </div>
+</div>

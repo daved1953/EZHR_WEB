@@ -47,8 +47,8 @@
 h2 {
     margin-top: 5px !important;
     margin-bottom: 5px !important;
-    -webkit-margin-before: 5px !important;
-    -webkit-margin-after: 5px !important;
+   /* -webkit-margin-before: 5px !important;
+    -webkit-margin-after: 5px !important; */
 }
 
 body {
@@ -399,12 +399,12 @@ table.shortTable tfoot {
     color: white;
 }
 
-.navbar-ppi-test {
+.navbar-ezhr-test {
     background-color: #00900C;
     color: white;
 }
 
-.navbar-ppi-test-in-prod {
+.navbar-ezhr-test-in-prod {
     background-color: #ff6600;
     color: white;
 }
@@ -431,12 +431,12 @@ div.dataTables_wrapper div.dataTables_paginate {
     text-align: left;
 }
 
-div.ppi-panel-heading-primary {
+div.ezhr-panel-heading-primary {
     background-color: #0C3B5D;
     border-color: #0C3B5D;
 }
 
-.ppi-pad-right {
+.ezhr-pad-right {
     padding-right: 5px;
 }
 
@@ -451,9 +451,43 @@ div.ppi-panel-heading-primary {
     min-height: 0px;
 }
 
-input[type="radio"], input[type="checkbox"] {
+input[type="radio"]{
     margin: 0px;
 }
+
+input[type=checkbox] {
+    -ms-transform: scale(3); /* IE */
+    -moz-transform: scale(3); /* FF */
+    -webkit-transform: scale(3); /* Safari and Chrome */
+    -o-transform: scale(3); /* Opera */
+}
+
+.checkbox_scale1 {
+    margin: 15px;
+    -ms-transform: scale(1); /* IE */
+    -moz-transform: scale(1); /* FF */
+    -webkit-transform: scale(1); /* Safari and Chrome */
+    -o-transform: scale(1); /* Opera */
+}
+
+.checkbox_scale2 {
+    margin: 15px;
+    -ms-transform: scale(2); /* IE */
+    -moz-transform: scale(2); /* FF */
+    -webkit-transform: scale(2); /* Safari and Chrome */
+    -o-transform: scale(2); /* Opera */
+}
+
+.checkbox_scale3 {
+    margin: 15px;
+    -ms-transform: scale(3); /* IE */
+    -moz-transform: scale(3); /* FF */
+    -webkit-transform: scale(3); /* Safari and Chrome */
+    -o-transform: scale(3); /* Opera */
+}
+
+
+
 
 .vertical-align-middle {
     display: flex;
@@ -520,7 +554,7 @@ input[type="radio"], input[type="checkbox"] {
     background-color: #ADAFAE;
 }
 
-.ppi-table > thead > tr > th, .ppi-table > tbody > tr > th, .ppi-table > tfoot > tr > th, .ppi-table > thead > tr > td, .ppi-table > tbody > tr > td, .ppi-table > tfoot > tr > td {
+.ezhr-table > thead > tr > th, .ezhr-table > tbody > tr > th, .ezhr-table > tfoot > tr > th, .ezhr-table > thead > tr > td, .ezhr-table > tbody > tr > td, .ezhr-table > tfoot > tr > td {
     padding: 4px;
     line-height: 1.42857143;
     vertical-align: top;
@@ -673,7 +707,7 @@ input[type="radio"], input[type="checkbox"] {
     font-size: 14px;
 }
 
-.ppi-block {
+.ezhr-block {
     display: block;
 }
 

@@ -28,6 +28,8 @@ namespace EZHRWeb_Business.Helpers
                 cfg.CreateMap<WebPhraseDto, WebPhrase>();
                 cfg.CreateMap<WebPhrase, WebPhraseDto>();
 
+                cfg.CreateMap<RespDataDto, RespData>();
+                cfg.CreateMap<RespData, RespDataDto>();
 
             });
 
