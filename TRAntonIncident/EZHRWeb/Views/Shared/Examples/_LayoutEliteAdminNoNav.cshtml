@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="~/Content/images/Logo_Small_Theme.png">
+    <title>@ViewBag.Title</title>
+    <!-- Custom CSS -->
+    
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <script type='text/javascript'>
+        var appInsights=window.appInsights||function(config)
+        {
+            function r(config){ t[config] = function(){ var i = arguments; t.queue.push(function(){ t[config].apply(t, i)})} }
+            var t = { config:config},u=document,e=window,o='script',s=u.createElement(o),i,f;for(s.src=config.url||'//az416426.vo.msecnd.net/scripts/a/ai.0.js',u.getElementsByTagName(o)[0].parentNode.appendChild(s),t.cookie=u.cookie,t.queue=[],i=['Event','Exception','Metric','PageView','Trace','Ajax'];i.length;)r('track'+i.pop());return r('setAuthenticatedUserContext'),r('clearAuthenticatedUserContext'),config.disableExceptionTracking||(i='onerror',r('_'+i),f=e[i],e[i]=function(config, r, u, e, o) { var s = f && f(config, r, u, e, o); return s !== !0 && t['_' + i](config, r, u, e, o),s}),t
+        }({
+            instrumentationKey: '@(Microsoft.ApplicationInsights.Extensibility.TelemetryConfiguration.Active.InstrumentationKey)'
+        });
+
+        window.appInsights=appInsights;
+        appInsights.trackPageView();
+    </script>
+
+    <link href="@Url.Content("~/Content/bootstrap-multiselect.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/bootstrap-toggle.min.css")" rel="stylesheet" type="text/css" />
+    @*<link href="@Url.Content("~/Content/EliteAdminTheme/assets/node_modules/bootstrap-datepicker/bootstrap-datepicker.min.css")" rel="stylesheet" type="text/css" />*@
+    <link href="@Url.Content("~/Content/EliteAdminTheme/assets/node_modules/bootstrap-select/bootstrap-select.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/EliteAdminTheme/ppiEliteAdmin.min.css")" rel="stylesheet" type="text/css" />
+
+
+    @Scripts.Render("~/bundles/EliteAdminTheme")
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    @Scripts.Render("~/bundles/jqueryval")
+
+    
+    @RenderSection("styles", required: false)
+    @RenderSection("scripts", required: false)
+
+    <script type="text/javascript">
+        function handleError(ajaxContext) {
+            //debugger;
+            var response = ajaxContext.responseText;
+            var statusCode = ajaxContext.status;
+            $("body").html(response);
+        };
+
+        function BeginAjaxClient(xhr) {
+            securityToken = $('[name=__RequestVerificationToken]').val();
+            xhr.setRequestHeader('__RequestVerificationToken', securityToken);
+        }
+
+        function PPI_ReapplyValidation()
+        {
+            $("form").removeData("validator");
+            $("form").removeData("unobtrusiveValidation");
+            $.validator.unobtrusive.parse("form");
+        }
+
+    </script>
+
+</head>
+
+<body class="horizontal-nav skin-ppi fixed-layout">
+
+    @if (Request.Url.AbsoluteUri.Contains("oauthtest") || Request.Url.AbsoluteUri.Contains("crmdevelopment"))
+    {
+        <h5 class="text-center m-0 navbar-ppi-test">THIS IS THE DEVELOPMENT ENVIRONMENT</h5>
+    }
+    else if (Request.Url.AbsoluteUri.Contains("bridgetesting"))
+    {
+        <h5 class="text-center m-0 navbar-ppi-test-in-prod">THIS IS THE DEVELOPMENT ENVIRONMENT</h5>
+    }
+<!-- ============================================================== -->
+<!-- Preloader - style you can find in spinners.css -->
+<!-- ============================================================== -->
+<div class="preloader">
+    <div class="loader">
+        <div class="loader__figure"></div>
+        <p class="loader__label">Piedmont Bridge</p>
+    </div>
+</div>
+<!-- ============================================================== -->
+<!-- Main wrapper - style you can find in pages.scss -->
+<!-- ============================================================== -->
+<div id="main-wrapper">
+
+   
+    <!-- ============================================================== -->
+    <!-- Page wrapper -->
+    <!-- ============================================================== -->
+    <div class="page-wrapper">
+        <!-- ============================================================== -->
+        <!-- Container fluid -->
+        <!-- ============================================================== -->
+        <div class="container-fluid">
+            <div>
+                @RenderBody()
+            </div>
+      
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Container fluid -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Page wrapper -->
+    <!-- ============================================================== -->
+
+</div>
+<!-- ============================================================== -->
+<!-- End Wrapper -->
+<!-- ============================================================== -->
+</body>
+
+</html>

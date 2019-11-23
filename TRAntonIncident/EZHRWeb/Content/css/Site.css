@@ -1,0 +1,967 @@
+﻿.Popup {
+    position: fixed;
+    display: none;
+    top: 20%;
+    left: 30%;
+}
+
+.Popup-Border {
+    position: fixed;
+    display: none;
+    top: 20%;
+    left: 30%;
+    width: 35%;
+    background-color: LightBlue;
+    border-left: ridge;
+    border-color: #004062;
+    border-width: 3px;
+    border-right: ridge;
+    z-index: 100;
+    border-top: ridge;
+    border-width: 3px;
+    border-bottom: ridge;
+}
+
+
+
+
+.leftBorder {
+    border-left: ridge;
+    border-color: #004062;
+    border-width: 3px;
+}
+
+.rightBorder {
+    border-right: ridge;
+    border-color: #004062;
+    border-width: 3px;
+    z-index: 100;
+}
+
+.jumbotron {
+    padding: 0;
+    margin: 0;
+    background-color: #F3F1F1;
+}
+
+h2 {
+    margin-top: 5px !important;
+    margin-bottom: 5px !important;
+    -webkit-margin-before: 5px !important;
+    -webkit-margin-after: 5px !important;
+}
+
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 500px;
+}
+
+
+/*
+ * Base structure
+ */
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+    padding-top: 50px;
+}
+
+
+/*
+ * Global add-ons
+ */
+
+.sub-header {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+/*
+ * Top navigation
+ * Hide default border to remove 1px line.
+ */
+.navbar-fixed-top {
+    border: 0;
+}
+
+.navbar-default .navbar-nav > li> a {
+    color: white;
+}
+
+.navbar-default .navbar-text
+{
+    color: white;
+}
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+    background-color: white;
+    color: black;
+}
+
+
+.navbar-default .navbar-nav > li > a:hover > i,
+.navbar-default .navbar-nav > li > a:focus > i{
+    background-color: white;
+    color: black;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: white;
+}
+/*
+ * Sidebar
+ */
+/* Hide for mobile, show later */
+.sidebar {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .sidebar {
+        position: fixed;
+        top: 51px;
+        bottom: 0;
+        left: 0;
+        z-index: 1000;
+        display: block;
+        padding: 20px;
+        overflow-x: hidden;
+        overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+        background-color: #f5f5f5;
+        border-right: 1px solid #eee;
+    }
+}
+
+/* Sidebar navigation */
+.nav-sidebar {
+    margin-right: -21px; /* 20px padding + 1px border */
+    margin-bottom: 20px;
+    margin-left: -20px;
+}
+
+    .nav-sidebar > li > a {
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+
+    .nav-sidebar > .active > a,
+    .nav-sidebar > .active > a:hover,
+    .nav-sidebar > .active > a:focus {
+        color: #fff;
+        background-color: #428bca;
+    }
+
+
+/*
+ * Main content
+ */
+
+.main {
+    padding: 20px;
+}
+
+@media (min-width: 768px) {
+    .main {
+        padding-right: 40px;
+        padding-left: 40px;
+    }
+}
+
+.main .page-header {
+    margin-top: 0;
+}
+
+
+/*
+ * Placeholder dashboard ideas
+ */
+
+.placeholders {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+    .placeholders h4 {
+        margin-bottom: 0;
+    }
+
+.placeholder {
+    margin-bottom: 20px;
+}
+
+    .placeholder img {
+        display: inline-block;
+        border-radius: 50%;
+    }
+
+table.shortTable td,
+table.shortTable tr,
+table.shortTable table,
+table.shortTable thead,
+table.shortTable tbody,
+table.shortTable tfoot {
+    padding: 2px !important;
+}
+
+.popover {
+    max-width: 100%;
+    border-style: ridge;
+    /*border-color:#218A3D;*/
+    border-color: #004062;
+    border-width: 5px;
+}
+
+.popover-title {
+    background-color: #BDE3F5;
+    font-weight: bold;
+}
+
+.btn-ppi {
+    background-color: #004062;
+}
+
+/*.tableBorder
+{
+    border-style:ridge;
+    border-color:#004062;
+    border-width:5px;
+}*/
+
+
+
+.CrmOutline {
+    padding: 0px;
+    border: 3px ridge #004062;
+    border-radius: 25px;
+}
+
+
+.BoundModal {
+    position: relative;
+    bottom: 0;
+    right: 0;
+    left: auto;
+    top: auto;
+    bottom: 0;
+    overflow: auto;
+}
+
+.fullHeight {
+    min-height: 100%;
+    height: 100%;
+}
+
+
+
+/*modal-static {
+    position: fixed;
+    top: 50% !important;
+    left: 50% !important;
+    margin-top: -100px;
+    margin-left: -100px;
+    overflow: visible !important;
+}*/
+
+    .modal-static .modal-body {
+        background-color: white !important;
+    }
+
+    .modal-static .modal-static .modal-dialog .modal-static .modal-content {
+        min-width: 200px;
+        min-height: 200px;
+    }
+
+    .modal-static .modal-dialog .modal-static .modal-content {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+.paddingBetweenCols td {
+    padding: 0 15px 0 15px;
+}
+
+
+
+.ApprovalText {
+    color: red;
+}
+
+.dbMetricHeader {
+    /*font:bold 12px, arial;*/
+    font: bold 12px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.PipelineHeaderLeft {
+    font-weight: bold;
+    text-align: left;
+}
+
+.PipelineHeaderRight {
+    font-weight: bold;
+    text-align: right;
+    /*width: 100px;*/
+}
+
+.PipelineEligbleToClose {
+    font-weight: bold;
+    text-align: right;
+    width: 10px;
+    color: green !important;
+}
+
+.PiplineCell {
+    width: 100px;
+}
+
+.metricTable {
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+}
+
+.dashboardReportAccessButton {
+    width: auto;
+}
+
+/*.helpLink{
+    display: block;
+}*/
+
+.tdLeft {
+    text-align: left;
+}
+
+.tdRight {
+    text-align: right;
+}
+
+.helpTable {
+    margin-left: 35%;
+    margin-right: auto;
+}
+
+.qaTable {
+    margin-left: 50%;
+    margin-right: auto;
+}
+
+
+.metricBody {
+    font-family: Segoe UI, Tahoma, Arial;
+    background-color: white;
+    margin: 0;
+    border: none;
+    padding: 0;
+    border-collapse: collapse;
+    text-align: center;
+    vertical-align: central;
+    height: 100%;
+    width: 100%;
+}
+
+
+
+.row-eq-height {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+
+
+.navbar-ppi {
+    background-color: #004062;
+    color: white;
+}
+
+.navbar-ppi-test {
+    background-color: #00900C;
+    color: white;
+}
+
+.navbar-ppi-test-in-prod {
+    background-color: #ff6600;
+    color: white;
+}
+
+.navbar-header .navbar-brand {
+    background-color: #004062;
+    color: white;
+    margin-left: 0 !important;
+}
+
+.basicTd .basicPre {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+    /*font-family:Arial;*/
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    white-space: pre-wrap;
+}
+
+
+div.dataTables_wrapper div.dataTables_paginate {
+    text-align: left;
+}
+
+div.ppi-panel-heading-primary {
+    background-color: #0C3B5D;
+    border-color: #0C3B5D;
+}
+
+.ppi-pad-right {
+    padding-right: 5px;
+}
+
+.ul-ppi {
+    /*background-color: lightgray;*/
+    background-color: lightgray;
+}
+
+
+.nomargin {
+    margin: 0px;
+    min-height: 0px;
+}
+
+input[type="radio"], input[type="checkbox"] {
+    margin: 0px;
+}
+
+.vertical-align-middle {
+    display: flex;
+    align-items: center;
+}
+
+.roundedInput {
+    border-radius: 4px;
+}
+
+.nopadding {
+    padding: 0px;
+}
+
+.ppi_green {
+    color: #2D9646;
+}
+
+.ppi_red {
+    color: #A12B22;
+}
+
+.ppi_pantone299 {
+    color: #1BA8E1;
+}
+
+.ppi_pantone290 {
+    color: #C1E7F6;
+}
+
+.ppi_grey {
+    color: #ADAFAE;
+}
+
+#current_terms {
+    background-color: #1BA8E1;
+    color: black;
+    padding-left: 8px;
+    /*text-align:center;*/
+    font-size: larger;
+}
+
+#new_terms {
+    /*background-color:#f5f5f5;
+    color:black;*/
+    padding-left: 8px;
+    /*text-align:center;*/
+    font-size: larger;
+}
+
+.ppi_red_background {
+    background-color: #A12B22;
+}
+
+.ppi_pantone299_background {
+    background-color: #1BA8E1;
+}
+
+.ppi_pantone290_background {
+    background-color: #C1E7F6;
+}
+
+.ppi_grey_background {
+    background-color: #ADAFAE;
+}
+
+.ppi-table > thead > tr > th, .ppi-table > tbody > tr > th, .ppi-table > tfoot > tr > th, .ppi-table > thead > tr > td, .ppi-table > tbody > tr > td, .ppi-table > tfoot > tr > td {
+    padding: 4px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+}
+
+.ppi_horizontal_padding_2 > table > thead > tr > th {
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+.no_right_padding {
+    padding-right: 0px;
+}
+
+
+@media (min-width: 768px) {
+    .modal-xl {
+        width: 90%;
+        max-width: 1200px;
+    }
+}
+
+
+
+.navbar-center {
+    float: left !important;
+    position: absolute;
+    left: 40%;
+}
+
+
+
+
+.panel-ppi299 {
+    border-color: #ddd;
+}
+
+
+    .panel-ppi299 > .panel-body {
+        padding: 5px;
+    }
+
+    .panel-ppi299 > .panel-heading {
+        color: white;
+        font-size: 16px;
+        background-color: #1BA8E1;
+        border-color: #ddd;
+    }
+
+        .panel-ppi299 > .panel-heading + .panel-collapse > .panel-body {
+            border-top-color: #ddd;
+        }
+
+        .panel-ppi299 > .panel-heading .badge {
+            color: white;
+            background-color: #1BA8E1;
+        }
+
+    .panel-ppi299 > .panel-footer + .panel-collapse > .panel-body {
+        border-bottom-color: #ddd;
+    }
+
+
+
+.panel-ppi660 {
+    border-color: #ddd;
+}
+
+    .panel-ppi660 > .panel-body {
+        padding: 5px;
+    }
+
+    .panel-ppi660 > .panel-heading {
+        color: white;
+        font-size: 16px;
+        background-color: #0175BC;
+        border-color: #ddd;
+    }
+
+        .panel-ppi660 > .panel-heading + .panel-collapse > .panel-body {
+            border-top-color: #ddd;
+        }
+
+        .panel-ppi660 > .panel-heading .badge {
+            color: white;
+            background-color: #0175BC;
+        }
+
+    .panel-ppi660 > .panel-footer + .panel-collapse > .panel-body {
+        border-bottom-color: #ddd;
+    }
+
+.panel-ppi290 {
+    border-color: #ddd;
+}
+
+    .panel-ppi290 > .panel-body {
+        padding: 5px;
+    }
+
+    .panel-ppi290 > .panel-heading {
+        color: black;
+        font-size: 16px;
+        background-color: #C1E7F6;
+        border-color: #ddd;
+    }
+
+        .panel-ppi290 > .panel-heading + .panel-collapse > .panel-body {
+            border-top-color: #ddd;
+        }
+
+        .panel-ppi290 > .panel-heading .badge {
+            color: black;
+            background-color: #C1E7F6;
+        }
+
+    .panel-ppi290 > .panel-footer + .panel-collapse > .panel-body {
+        border-bottom-color: #ddd;
+    }
+
+
+
+
+/* tab color */
+
+.nav-tabs > li > a {
+    background-color: #C1E7F6;
+    color: black;
+}
+
+/* active tab color */
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+    font-weight: bold;
+    color: black;
+    /*
+      background-color: white;*/
+    /*border: 1px solid #888888;
+  border-bottom:none;*/
+}
+
+
+.emailDiv > pre {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+    /*font-family:Arial;*/
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+}
+
+.ppi-block {
+    display: block;
+}
+
+.formDisplayTopPadding {
+    padding-top: 7px;
+}
+
+
+.map_nav_svg {
+    height: 36px;
+    width: 20px;
+    position: absolute;
+    padding-top: 3px;
+}
+
+.svg_label {
+    padding-left: 16px;
+}
+
+.svg_span {
+    display: block;
+    float: left;
+    margin-right: 2px;
+}
+
+
+
+.fullWidthIframe > iframe {
+    width: 100%;
+    height: 100%;
+}
+
+.fullWidthIframe {
+    width: 100%;
+    height: 100%;
+}
+
+
+
+.navbar-nav > li > a {
+    color: #ffffff;
+    font-size: 18px;
+}
+
+    .navbar-nav > li > a:hover,
+    .navbar-nav > li > a:focus {
+        color: black;
+    }
+
+.navbar-nav > .active > a,
+.navbar-nav > .active > a:hover,
+.navbar-nav > .active > a:focus {
+    color: #ffffff;
+    background-color: black;
+}
+
+.navbar-nav > .open > a,
+.navbar-nav > .open > a:hover,
+.navbar-nav > .open > a:focus {
+    color: #ffffff;
+    background-color: black;
+}
+
+.tdindent {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 8pt;
+    font-style: normal;
+    text-indent: 4px;
+}
+
+/* Style the tab */
+div.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+    /* Style the buttons inside the tab */
+    div.tab button {
+        background-color: inherit;
+        float: left;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 14px 16px;
+        transition: 0.3s;
+    }
+
+        /* Change background color of buttons on hover */
+        div.tab button:hover {
+            background-color: #ddd;
+        }
+
+        /* Create an active/current tablink class */
+        div.tab button.active {
+            background-color: #ccc;
+        }
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+/* branch status specific */
+.branchsection {
+    border: 1px solid #ddd;
+    width: 220px;
+}
+
+.branchtable {
+    border-collapse: collapse;
+    text-align: left;
+    height: 16px;
+    font: italic bold 8px/ 8px Georgia, serif;
+}
+
+.branchtr {
+    border: 1px solid #ddd;
+    text-align: center;
+    width: 25px;
+    height: 20px;
+    font: normal normal 20px/ 15px Georgia, serif;
+}
+
+.branchth {
+    border: 1px solid #ddd;
+    text-align: center;
+    width: 55px;
+    height: 20px;
+    padding: 2px;
+    font: normal bold 10px/ 10px Georgia, serif;
+}
+
+.branchfilmth {
+    border: 1px solid #ddd;
+    text-align: center;
+    width: 65px;
+    height: 20px;
+    padding: 5px;
+    font: normal bold 10px/ 10px Georgia, serif;
+}
+
+.branchfilmtr {
+    border: 1px solid #ddd;
+    text-align: center;
+    padding: 5px;
+    font: normal normal 20px/ 10px Georgia, serif;
+}
+
+
+.branch-item-th, .branch-Item-td {
+    padding: 5px;
+}
+
+.legend {
+    border: 2px solid #ddd;
+    width: 125px;
+    height: 15px;
+    font: normal bold 65px/ 65px Georgia, serif;
+}
+
+.legendtr {
+    border: 1px solid #ddd;
+    text-align: center;
+    width: 65px;
+    height: 20px;
+    font: normal normal 15px/ 15px Georgia, serif;
+}
+
+/* Style the tab */
+div.tab {
+    overflow: hidden;
+    border: .5px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+    /* Style the buttons inside the tab */
+    div.tab button {
+        background-color: inherit;
+        float: left;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 2px 4px;
+        transition: 0.3s;
+    }
+
+        /* Change background color of buttons on hover */
+        div.tab button:hover {
+            background-color: #ddd;
+        }
+
+        /* Create an active/current tablink class */
+        div.tab button.active {
+            background-color: #ccc;
+        }
+
+.branchtabbox {
+    padding: 1.5px 1px;
+    border: 1.5px solid #ccc;
+    border-top: none;
+    font: normal normal 15px/ 15px Georgia, serif;
+}
+
+
+/* -------------  Inventory Seq Table ---------*/
+
+.message {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 9pt;
+    font-style: normal;
+}
+
+/*.Inventory-seqTable {
+    border: 1px solid #ddd;
+    padding: 5px;
+    font: normal normal 10px/ 15px Helvetica, sans-serif;
+}
+
+.Inventory-Avl {
+    border: 1px solid #ddd;
+    width: 15px;
+    text-align: center;
+    padding: 5px;
+}
+
+.Inventory-Seq {
+    border: 1px solid #ddd;
+    width: 35px;
+    text-align: center;
+    padding: 5px;
+}
+
+.Inventory-Part {
+    border: 1px solid #ddd;
+    width: 170px;
+    text-align: left;
+    padding: 5px;
+}
+
+.Inventory-Dim {
+    border: 1px solid #ddd;
+    width: 65px;
+    text-align: center;
+    padding: 5px;
+}
+
+.Inventory-Desc {
+    border: 1px solid #ddd;
+    width: 350px;
+    text-align: left;
+    padding: 5px;
+}
+
+.Inventory-modal {
+    width: 500px;
+    height: 600px;
+    position: fixed  ;
+    left: 30%;
+    top: 20%; 
+    margin-left: -150px;
+    margin-top: -150px;
+    -webkit-overflow-scrolling: auto;
+}
+
+
+.Inventory-body {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.Branches-seqTable {
+    border: 1px solid #ddd;
+    padding: 5px;
+    font: normal normal 10px/15px Georgia, serif;
+}
+
+    .Branches-storename {
+    border: 1px solid #ddd;
+    width: 85px;
+    text-align: center;
+    padding: 5px;
+}*/
+
+.ppiblue4 {
+    background-color: #f5f8fa;
+}
