@@ -4,18 +4,19 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
-using EZHRWeb_DB.DbInterface;
+
 
 namespace EZHRWeb_DB.DbInterface
 {
-    public class InitIncident : BaseDb
+    public partial class IncidentDb : BaseDb
     {
-        public SqlConnection sqlConn;
+       
 
-        public InitIncident()
-        {
-            sqlConn = new SqlConnection(SqlConn);
-        }
+
+        //public InitIncident()
+        //{
+        //    sqlConn = new SqlConnection(SqlConn);
+        //}
 
         /// <summary>
         /// loads Dmake default values.
@@ -24,11 +25,12 @@ namespace EZHRWeb_DB.DbInterface
         public async Task<List<DMakerDto>> SelectAllDMaker()
         {
             List<DMakerDto> requesteddata = new List<DMakerDto>();
-            using (SqlConnection sqlconn = sqlConn)
+            using (SqlConnection sqlconn = new SqlConnection(SqlConn))
             {
                 SqlCommand cmd = new SqlCommand("GetDMaker", sqlconn);
 
                 sqlconn.Open();
+                
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 SqlDataReader reader = await cmd.ExecuteReaderAsync();
@@ -133,7 +135,7 @@ namespace EZHRWeb_DB.DbInterface
         {
             List<QMasterDto> qmasters = new List<QMasterDto>();
 
-            using (SqlConnection sqlconn = sqlConn)
+            using (SqlConnection sqlconn = new SqlConnection(SqlConn))
             {
                 SqlCommand cmd = new SqlCommand("GetQmaster", sqlconn);
 
@@ -164,11 +166,12 @@ namespace EZHRWeb_DB.DbInterface
         /// </summary>
         /// <returns></returns>
         public async Task<List<SampleCallFlowDto>> GetSampleCallFlow()
-        {
+        { List<SampleCallFlowDto> returnresult = new List<SampleCallFlowDto>();
+            SampleCallFlowDto vSampleCallFlow;
             try
             {
-                List<SampleCallFlowDto> returnresult = new List<SampleCallFlowDto>();
-                using (SqlConnection sqlconn = sqlConn)
+
+                using (SqlConnection sqlconn = new SqlConnection(SqlConn))
                 {
                     SqlCommand cmd = new SqlCommand("GetSampleCallFlow", sqlconn);
 
@@ -176,21 +179,24 @@ namespace EZHRWeb_DB.DbInterface
 
                     cmd.CommandType = CommandType.StoredProcedure;
 
+
                     SqlDataReader result = await cmd.ExecuteReaderAsync();
+
+                    DataTable odt = result.GetSchemaTable();
 
                     while (result.Read())
                     {
-                        SampleCallFlowDto vSampleCallFlow = new SampleCallFlowDto();
+                        vSampleCallFlow = new SampleCallFlowDto();
 
-                         vSampleCallFlow.ID = result.GetInt32(result.GetOrdinal("ID"));
+                         vSampleCallFlow.ID = result.GetInt32(result.GetOrdinal("Id"));
                         vSampleCallFlow.Action = result.GetInt32(result.GetOrdinal("Action"));
                        vSampleCallFlow.PrimarySection = result.GetInt32(result.GetOrdinal("PrimarySection"));
-                        vSampleCallFlow.Qid = result.GetString(result.GetOrdinal("QID"));
+                        //vSampleCallFlow.Qid = result.GetString(result.GetOrdinal("QID"));
                         vSampleCallFlow.QuestionType = result.GetString(result.GetOrdinal("QuestionType"));
-                        vSampleCallFlow.Section = result.GetInt32(result.GetOrdinal("Section"));
+                     //   vSampleCallFlow.Section = result.GetInt32(result.GetOrdinal("Section"));
                         vSampleCallFlow.SectionType = result.GetString(result.GetOrdinal("Sectiontype"));
                         //vSampleCallFlow.SsmaTimeStamp = result.GetDateTime(result.GetOrdinal("SSMA_TimeStamp"));
-                        vSampleCallFlow.SubSection = result.GetInt32(result.GetOrdinal("SubSection"));
+                        vSampleCallFlow.SubSection =result.GetInt32(result.GetOrdinal("SubSection"));
                         vSampleCallFlow.Verbage = result.GetString(result.GetOrdinal("Verbage"));
 
                         returnresult.Add(vSampleCallFlow);
@@ -205,9 +211,11 @@ namespace EZHRWeb_DB.DbInterface
 
             catch (Exception ex)
             {
-                throw new Exception( "Getting call stream",ex.InnerException);
+                throw new Exception( ex.Message,ex.InnerException);
             }
         }
+
+      
 
         /// <summary>
         /// ReportData Template
@@ -217,7 +225,7 @@ namespace EZHRWeb_DB.DbInterface
         {
             ReportDataDto newReportData = new ReportDataDto();
 
-            using (SqlConnection sqlconn = sqlConn)
+            using (SqlConnection sqlconn = new SqlConnection(SqlConn))
             {
                 SqlCommand cmd = new SqlCommand("GetReportDataTEmplate", sqlconn);
 
@@ -264,7 +272,7 @@ namespace EZHRWeb_DB.DbInterface
         {
             RespDataDto newRespData = new RespDataDto();
 
-            using (SqlConnection sqlconn = sqlConn)
+            using (SqlConnection sqlconn = new SqlConnection(SqlConn))
             {
                 SqlCommand cmd = new SqlCommand("GetRespData", sqlconn);
                 sqlconn.Open();

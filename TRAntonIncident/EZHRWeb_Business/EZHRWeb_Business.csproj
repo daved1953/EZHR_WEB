@@ -65,16 +65,17 @@
     <Compile Include="Models\ReportData.cs" />
     <Compile Include="Models\RespData.cs" />
     <Compile Include="Models\SampleCallFlow.cs" />
+    <Compile Include="Models\WebPhrase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EXHRWeb_DB\EZHRWeb_DB.csproj">
       <Project>{746dd592-204e-449e-9934-7ab37a64a3bf}</Project>
       <Name>EZHRWeb_DB</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,17 +1,41 @@
-﻿@{
+﻿@model EZHRWeb_Business.Models.WebPhrase
+@{
     ViewBag.Title = "Contact";
 }
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
-
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
-
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+<div class="ta-back ta-border ">
+    <div class="panel">
+        <p class="lead">
+            foreach ( int rid = 0 ; rid < model.Id ; rid++)
+            {
+            @if (Model.subsection == rid)
+            {
+                @Html.DisplayTextFor(m => m.englishtext)
+            }
+            @if (Model.subsection == rid)
+            {
+                <address>
+                    @Html.DisplayTextFor(m => m.englishtext)
+                    <br />
+                    @if (Model.subsection == rid)
+                    {
+                        @Html.DisplayTextFor(m => m.englishtext)
+                        </br>
+                    }
+                    @if (Model.subsection == rid)
+                    {
+                        <abbr title="Phone">P:</abbr>
+                        @Html.DisplayTextFor(m => m.englishtext)
+                        </
+                        address >
+                    }
+                    <address>
+                        <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
+                        <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
+                    </address>*@
+                    }
+                    }
+            </p>
+        </div>
+    </div>

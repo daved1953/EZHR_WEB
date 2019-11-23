@@ -17,12 +17,12 @@ namespace EZHR_Web.Controllers
 
         public IncidentController() :base()
         {
-            BI = new Incident();
+            BI = new IncidentBus();
         }
         [HttpPost]
-        public ActionResult StartIncident()
+        public async Task<ActionResult> StartIncident()
         {
-           IncidentInput myIncident =   InitDatastructure();
+           IncidentInput myIncident = await  InitDataStructure();
 
 
            return PartialView("SignIn", myIncident);
@@ -41,11 +41,12 @@ namespace EZHR_Web.Controllers
         }
         
 
-
-        private  IncidentInput InitDatastructure()
+       
+        private async Task<IncidentInput> InitDataStructure()
         {
             IncidentInput oreportincident;
-            oreportincident= BI.InitIncidentObj();
+
+            oreportincident= await BI.InitIncidentObj();
 
             return oreportincident; 
         }

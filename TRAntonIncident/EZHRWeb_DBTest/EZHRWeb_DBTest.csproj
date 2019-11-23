@@ -61,6 +61,10 @@
       <Project>{746dd592-204e-449e-9934-7ab37a64a3bf}</Project>
       <Name>EZHRWeb_DB</Name>
     </ProjectReference>
+    <ProjectReference Include="..\EZHRWeb_Business\EZHRWeb_Business.csproj">
+      <Project>{c45e67ae-0459-4980-8cfb-9da40921b9af}</Project>
+      <Name>EZHRWeb_Business</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

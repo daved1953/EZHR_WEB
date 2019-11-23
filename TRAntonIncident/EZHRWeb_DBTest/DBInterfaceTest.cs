@@ -11,12 +11,12 @@ namespace EZHRWeb_DBTest
     public class DbInterfaceTest
     {
 
-        public EZHRWeb_DB.DbInterface.InitIncident tdb;
+        public IWebDbInterface tdb = new IncidentDb();
 
         [TestInitialize]
         public void TestStart()
         {
-            tdb = new InitIncident();
+            tdb = new IncidentDb();
 
         }
         
